@@ -33,7 +33,7 @@ let i = 0
        
         
         const card  = `
-        <figure id ="${data[i].category.name}"   >
+        <figure >
         <img   src="${data[i].imageUrl} ">
        
         <figcaption > ${data[i].title}</figcaption>
@@ -41,22 +41,22 @@ let i = 0
                `    
      
       //console.log(data[i].imageUrl)
-
-     
+      document.querySelector('.gallery') .insertAdjacentHTML( "beforeend",card );
+      console.log(data[i].category.name);
     }}
     btn_tous.addEventListener("click",tout);
  
-   
+   //object
 
  function object(){
-  document.querySelector('.gallery').removeAdjacentHTML("beforeend",card );
       let i = 0
-      if (data[i].category.name ==data[i].category.Objets){
+      
+       
             for (let i = 0; i<=numSlid;i++){
              
-              
+              if (data[i].category.name == 'Objets'){
               const card  = `
-              <figure id ="${data[i].category.name}"   >
+              <figure id = ${(data[i].category.Objets)}>
               <img   src="${data[i].imageUrl} ">
              
               <figcaption > ${data[i].title}</figcaption>
@@ -65,10 +65,57 @@ let i = 0
             document.querySelector('.gallery') .insertAdjacentHTML( "beforeend",card );
             //console.log(data[i].imageUrl)
       
-           
-          }}}
-          btn_objets.addEventListener("click",object);
+          }
+          }}
+  btn_objets.addEventListener("click",object);
 
+//appartements
+
+ function appartements(){
+            let i = 0
+            
+             
+                  for (let i = 0; i<=numSlid;i++){
+                   
+                    if (data[i].category.name == 'Appartements'){
+                    const card  = `
+                    <figure id = ${(data[i].category.Objets)}>
+                    <img   src="${data[i].imageUrl} ">
+                   
+                    <figcaption > ${data[i].title}</figcaption>
+                    </figure>
+                           `    
+                  document.querySelector('.gallery') .insertAdjacentHTML( "beforeend",card );
+                  //console.log(data[i].imageUrl)
+            
+                }
+                }}
+                btn_appartements.addEventListener("click",appartements);
+
+
+//hôtels
+function hôtels(){
+  let i = 0
+  
+   
+        for (let i = 0; i<=numSlid;i++){
+         
+          if (data[i].category.name == 'Hotels & restaurants'){
+          const card  = `
+          <figure id = ${(data[i].category.Objets)}>
+          <img   src="${data[i].imageUrl} ">
+         
+          <figcaption > ${data[i].title}</figcaption>
+          </figure>
+                 `    
+        document.querySelector('.gallery') .insertAdjacentHTML( "beforeend",card );
+        //console.log(data[i].imageUrl)
+  
+      }
+      }}
+btn_hôtels.addEventListener("click",hôtels);
+
+          
 })
 
 }else {
