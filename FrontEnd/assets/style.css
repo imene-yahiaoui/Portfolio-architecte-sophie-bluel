@@ -268,7 +268,7 @@ log in
 	align-items: center;
 	grid-gap: 7px;
   }
-  .titre , .titrep{
+  .titre , .titre_password{
 	font-family: 'Work Sans';
 	font-style: normal;
 	font-weight: 500;
@@ -278,7 +278,7 @@ log in
 	position: relative;
 	right: 166px;
   }
-  .titrep{
+  .titre_password{
 	 
 	  right: 144px;
 	}

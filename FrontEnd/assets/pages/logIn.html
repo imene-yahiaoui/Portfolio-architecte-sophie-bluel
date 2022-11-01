@@ -29,12 +29,14 @@
    
 	
 <main>
-    <form id="login-form">
-        <p class="titre">E-mail</p>
-        <input type="text" name="username" id="username-field" class="login-form-field" >
-        <p class="titrep">Mot de passe</p>
-        <input type="password" name="password" id="password-field" class="login-form-field" >
-        <input type="submit" value="Se connecter" id="login-form-submit">
+    <form action="#" id="login-form" method="POST"  >
+        <label class="titre">E-mail</label>
+        <input type="email" name="E-mail" id="username-field" class="login-form-field"placeholder="email"  required>
+		<span id ="error_input"></span>
+        <label class="titre_password">Mot de passe</label>
+        <input type="password" name="password" id="password-field" class="login-form-field" placeholder="password" required >
+		<span id ="error_password"></span>
+        <button type="submit"  id="login-form-submit">Se connecter</button>
         <a class="login-form-oublie" href="#" >Mot de passe oublié</a>
       </form>
 
@@ -47,6 +49,6 @@
 		</ul>
 	</nav>
 </footer>
-<script src="/FrontEnd/assets/script.js"></script>
+<script src="/FrontEnd/assets/logIn.js"></script>
 </body>
 </html>
