@@ -7,12 +7,14 @@ const valid = document.getElementById ("login-form-submit");
  function logInfrom(){
 
 
-if (email == "sophie.bluel@test.tld"){
+if (email =="sophie.bluel@test.tld" , password =="S0phie"){
 
+href="/FrontEnd/assets/pages/pageAdmin.html"
 console.log("true");
 }
 else{
-    error.innerHTML="le email ou le mpt de pass pas corect ";
+    error.innerHTML="email ou mot de passe incorrect ";
+    error.style.color="red";
     
 console.log("false");
 }
