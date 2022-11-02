@@ -7,7 +7,7 @@ const valid = document.getElementById ("login-form-submit");
  function logInfrom(){
 
 
-if (email =="sophie.bluel@test.tld" , password =="S0phie"){
+if (email =="sophie.bluel@test.tld" & password =="S0phie"){
 
 href="/FrontEnd/assets/pages/pageAdmin.html"
 console.log("true");
