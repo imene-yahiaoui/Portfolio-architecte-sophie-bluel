@@ -20,6 +20,22 @@ fetch("http://localhost:5678/api/works").then((res) => {
         if (res.ok) {
           res.json().then((category) => {
       
+function info (i){
+  const card = `
+  <figure >
+  <img src="${data[i].imageUrl}">
+ 
+  <figcaption>${data[i].title}</figcaption>
+  </figure>
+         `;
+         
+ 
+    document
+      .querySelector(".gallery")
+      .insertAdjacentHTML("beforeend", card);
+}
+
+
              //tout
       function tout() {
         // document.querySelector(".gallery").removeAttributeNode
@@ -27,18 +43,7 @@ fetch("http://localhost:5678/api/works").then((res) => {
         
  let i = 0;
          for ( i = 0; i <= numSlid; i++) {
-           const card = `
-         <figure >
-         <img src="${data[i].imageUrl}">
-        
-         <figcaption>${data[i].title}</figcaption>
-         </figure>
-                `;
-                
-           //console.log(data[i].imageUrl)
-           document
-             .querySelector(".gallery")
-             .insertAdjacentHTML("beforeend", card);
+        info(i);
         
          }
        }
@@ -60,17 +65,8 @@ fetch("http://localhost:5678/api/works").then((res) => {
     for ( i = 0; i <= numSlid; i++) {
       
       if (data[i].category.name=="Objets") {
-        const card = `
-          <figure >
-          <img src="${data[i].imageUrl} ">
-         <figcaption > ${data[i].title}</figcaption>
-          </figure>
-                 `;
-        document
-          .querySelector(".gallery")
-          .insertAdjacentHTML("beforeend", card);
-       
-      }
+        info(i);
+        }
     }
   };
 
@@ -96,18 +92,8 @@ appartements.onclick = function() {
   
   for (  i = 0; i <= numSlid; i++) {
     if (data[i].category.name=== category[1].name) {
-      const card = `
-              <figure id = ${data[i].category.name}>
-              <img   src="${data[i].imageUrl} ">
-             
-              <figcaption > ${data[i].title}</figcaption>
-              </figure>
-                     `;
-      document
-        .querySelector(".gallery")
-        .insertAdjacentHTML("beforeend", card);
-     
-    }
+      info(i);
+      }
   }
 };
 
@@ -130,17 +116,7 @@ hôtels.onclick = function() {
   let i = 0;
   for ( i = 0; i <= numSlid; i++) {
     if (data[i].category.name===  category[2].name) {
-      const card = `
-    <figure >
-    <img   src="${data[i].imageUrl} ">
-   
-    <figcaption > ${data[i].title}</figcaption>
-    </figure>
-           `;
-      document
-        .querySelector(".gallery")
-        .insertAdjacentHTML("beforeend", card);
-     
+      info(i);  
     }
   }
 };
@@ -148,9 +124,6 @@ hôtels.onclick = function() {
 const resto= document.getElementById("btn");
 resto.appendChild(hôtels);
 
-
-
-       
       
     });
   } else {
