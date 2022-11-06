@@ -1,23 +1,39 @@
+ localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4");
+
+ 
 const email= document.getElementById("email");
 const password=document.getElementById("password");
 const error = document.getElementById("error");
 const valid = document.getElementById ("login-form-submit");
+const form = document.getElementById("login-form");
 
 
- function logInfrom(){
+ 
+form.addEventListener('submit',function(e){
+
+e.preventDefault();
+
+//recupere les inputs
+const information =new FormData(form);
+const payload= new URLSearchParams(information);
+
+console.log([...payload]);
 
 
-if (email =="sophie.bluel@test.tld" & password =="S0phie"){
+fetch('http://localhost:5678/api/users/login',{
+method:"POST",
+ 
+body:payload,
 
-href="/FrontEnd/assets/pages/pageAdmin.html"
-console.log("true");
-}
-else{
-    error.innerHTML="email ou mot de passe incorrect ";
-    error.style.color="red";
-    
-console.log("false");
-}
 
- }
-valid.addEventListener("click",logInfrom)
+})
+.then(res=> res.json())
+.then(data=> console.log(data))
+.catch(err=> console.log((err)));
+
+
+
+}) 
+
+
+ 

@@ -1,3 +1,7 @@
+
+console.log("moi je marche");
+
+
 const btn_tous = document.getElementById("btn_tous");
 
 const gallery = document.querySelector(".gallery");
