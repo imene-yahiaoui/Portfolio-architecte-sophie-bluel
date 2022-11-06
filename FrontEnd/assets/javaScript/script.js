@@ -1,10 +1,17 @@
-
-console.log("moi je marche");
-
-
 const btn_tous = document.getElementById("btn_tous");
 
 const gallery = document.querySelector(".gallery");
+
+function info(work) {
+  const card = `
+    <figure >
+    <img src="${work.imageUrl}">
+      <figcaption>${work.title}</figcaption>
+    </figure>
+          `;
+
+  document.querySelector(".gallery").insertAdjacentHTML("beforeend", card);
+}
 
 //fetch works
 fetch("http://localhost:5678/api/works").then((res) => {
@@ -18,98 +25,52 @@ fetch("http://localhost:5678/api/works").then((res) => {
         console.log(res);
         if (res.ok) {
           res.json().then((category) => {
-            function info(i) {
-              const card = `
-  <figure >
-  <img src="${data[i].imageUrl}">
- 
-  <figcaption>${data[i].title}</figcaption>
-  </figure>
-         `;
-
-              document
-                .querySelector(".gallery")
-                .insertAdjacentHTML("beforeend", card);
-            }
-
             //tout
             function tout() {
-             document.querySelector(".gallery").innerHTML = "";
+              document.querySelector(".gallery").innerHTML = "";
 
               let i = 0;
               for (i = 0; i <= numSlid; i++) {
-                info(i);
+                info(data[i]);
               }
             }
 
             btn_tous.addEventListener("click", tout);
 
             /////cree des btn  object////
+            let count = 0;
 
-            const object = document.createElement("button");
-            object.type = "button";
-            object.innerHTML = category[0].name;
-            object.id = "btn_objets";
-            object.onclick = function () {
-              document.querySelector(".gallery").innerHTML = "";
-              let i = 0;
-              for (i = 0; i <= numSlid; i++) {
-                if (data[i].category.name == "Objets") {
-                  info(i);
+            console.log();
+
+            for (let count = 0; count <= category.length - 1; count++) {
+              const object = document.createElement("button");
+              object.type = "button";
+              object.innerHTML = category[count].name;
+              object.className = "btn_option";
+              object.onclick = function () {
+                document.querySelector(".gallery").innerHTML = "";
+
+                for (let i = 0; i <= numSlid; i++) {
+                  if (data[i].category.name === category[count].name) {
+                    console.log(count);
+                    info(data[i]);
+                  }
                 }
-              }
-            };
-
-            const button = document.getElementById("btn");
-            button.appendChild(object);
-
-            /////cree des btn  appartements////
-
-            const appartements = document.createElement("button");
-            appartements.type = "button";
-            appartements.innerHTML = category[1].name;
-            appartements.id = "btn_appartements";
-            appartements.onclick = function () {
-              document.querySelector(".gallery").innerHTML = "";
-              let i = 0;
-
-              for (i = 0; i <= numSlid; i++) {
-                if (data[i].category.name === category[1].name) {
-                  info(i);
-                }
-              }
-            };
-
-            const apart = document.getElementById("btn");
-            apart.appendChild(appartements);
-
-            /////cree des btn  hôtels////
-
-            const hôtels = document.createElement("button");
-            hôtels.type = "button";
-            hôtels.innerHTML = category[2].name;
-            hôtels.id = "btn_hôtels";
-            hôtels.onclick = function () {
-              document.querySelector(".gallery").innerHTML = "";
-              let i = 0;
-              for (i = 0; i <= numSlid; i++) {
-                if (data[i].category.name === category[2].name) {
-                  info(i);
-                }
-              }
-            };
-
-            const resto = document.getElementById("btn");
-            resto.appendChild(hôtels);
+              };
+              const button = document.getElementById("btn");
+              button.appendChild(object);
+            }
 
             tout();
           });
-          
         } else {
           console.log("Error");
-          document.getElementById("error").innerHTML = "Error :(";
         }
       });
     });
   }
 });
+
+if (localStorage.getItem("token")) {
+  document.getElementById("login").innerText = "logout";
+}
