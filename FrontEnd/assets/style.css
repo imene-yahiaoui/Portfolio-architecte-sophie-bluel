@@ -194,7 +194,8 @@ footer nav ul {
     column-gap: 15px;
 	
 }
-#btn_tous,#btn_appartements,#btn_objets,#btn_hôtels
+.btn_option,
+#btn_tous
 
 {
 	height: 37px;
@@ -203,16 +204,13 @@ footer nav ul {
 	border-radius: 60px;
 	color:#1D6154; ;
 	cursor: pointer;
+	width:auto;
+	padding-left: 17px;
+    padding-right: 17px;
 }
-#btn_objets,
-#btn_tous{ width: 100px;
-	 }
  
-#btn_appartements{width: 157px;
- }
-
-#btn_hôtels{width: 178px;}
-#btn_tous:hover ,#btn_appartements:hover,#btn_hôtels:hover,#btn_objets:hover
+.btn_option:hover,
+#btn_tous:hover 
 {
 	background: #1D6154;
 	color:white;
@@ -287,3 +285,4 @@ padding-bottom: 300px;
 	 
 
   }
+
