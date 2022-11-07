@@ -67,10 +67,20 @@ fetch("http://localhost:5678/api/works").then((res) => {
           console.log("Error");
         }
       });
-    });
+    }).catch(err=> console.log((err)));
   }
 });
 
+
+//entre a la page model 
 if (localStorage.getItem("token")) {
   document.getElementById("login").innerText = "logout";
+
+
+
 }
+//ortier de la page model 
+document.getElementById("login").addEventListener("click", function(){
+
+  localStorage.clear();
+})
