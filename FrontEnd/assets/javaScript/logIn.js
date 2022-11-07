@@ -19,7 +19,7 @@ const payload= new URLSearchParams(information);
 console.log([...payload]);
 
 
-fetch('http://localhost:5678/api/users/login',{
+ fetch('http://localhost:5678/api/users/login',{
 method:"POST",
  
 body:payload,
@@ -28,12 +28,18 @@ body:payload,
 })
 .then(res=> res.json())
 .then(data=> {   console.log(data) 
- 
+ //entre dans la page model 
+    if( data.userId== 1  ){
 //recupre le token dans le localStorage
     localStorage.setItem("token",data.token);
     //lien ver la page model 
-        location.href ="/FrontEnd/index.html"
+        location.href ="/FrontEnd/index.html";
+    }
 
+        //affiche error 
+else{
+    error.innerText=" Email ou mot de passe ne sont pas correctes";
+}
 })
 
 
