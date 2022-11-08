@@ -146,8 +146,9 @@ line-height: 16px;
 
 }
 #portfolio h2 {
+	margin-top: 131px;
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: 60px;
 }
 .gallery {
 	width: 90%;
@@ -218,7 +219,7 @@ footer nav ul {
 	flex-direction: row;
 	justify-content:center;
     column-gap: 15px;
-	
+	margin-bottom: 50px;
 }
 .btn_option,
 #btn_tous
@@ -232,7 +233,7 @@ footer nav ul {
 	cursor: pointer;
 	width:auto;
 	box-sizing: border-box;
-	padding: 0 16px ;
+	padding: 0 18px ;
 	font-family:Syne;
 	font-size:16px;
 	font-weight:700;
@@ -293,7 +294,7 @@ log in
 	}
  
   .login {
-	box-shadow: 3 0 1 14px;
+	box-shadow: 3px 0px 1px 14px;
 	width: 379px;
 height: 51px;
 margin-bottom: 30px;
@@ -321,4 +322,3 @@ padding-bottom: 300px;
 	 
 
   }
- 

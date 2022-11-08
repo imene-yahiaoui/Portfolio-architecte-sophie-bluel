@@ -86,13 +86,13 @@ fetch("http://localhost:5678/api/works")
 
 //entre a la page model
 if (localStorage.getItem("token")) {
-  document.getElementById("login").innerText = "logout";
+  document.getElementById("login").innerHTML = `<a  href="/FrontEnd/index.html">logout</a>`;
 document.getElementById("btn").remove(btn_tous);
 
 
 
 }
-//sortir de la page model
+//ortier de la page model
 document.getElementById("login").addEventListener("click", function () {
   localStorage.clear();
 });
