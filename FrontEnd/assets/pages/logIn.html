@@ -7,6 +7,11 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<!--icon -->
+	<script
+      src="https://kit.fontawesome.com/f266b52627.js"
+      crossorigin="anonymous"
+    ></script>
 	<meta name="description" content="">
 	<link rel="stylesheet" href="/FrontEnd/assets/style.css">
 </head>
@@ -18,7 +23,7 @@
 			<li><a href="/FrontEnd/index.html">projets</a></li>
 			<li><a href="/FrontEnd/index.html">contact</a></li>
 			<li><a href="/FrontEnd/assets/pages/logIn.html">login</a></li>
-			<li><img src="/FrontEnd/assets/icons/instagram.png" alt="Instagram"></li>
+			<li> <i class="fa-brands fa-instagram"></i> </li>
 		</ul>
 	</nav>
 </header>
@@ -29,13 +34,13 @@
    
 	
 <main>
-    <form id="login-form">
-		<p id= "error"> </p>
-        <p class="titre">E-mail</p>
-        <input type="email" name="email" id="email" class="login " placeholder="enter your email"required>
-        <p class="titrep">Mot de passe</p>
-        <input type="password" name="password" id="password" class="login " placeholder="enter your password" required>
-        <input type="submit" value="Se connecter" id="login-form-submit"></input>
+    <form id="login-form" action="#" method="post">  
+		<label id= "error"> </label>
+        <label for="email" class="titre">E-mail</label>
+        <input type="email" name="email" id="email" class="login " required>
+        <label for="password"  class="titrep">Mot de passe</label>
+        <input type="password" name="password" id="password" class="login "  required>
+        <input type="submit" value="Se connecter" id="login-form-submit"> 
         <a class="login-form-oublie" href="#" >Mot de passe oublié</a>
       </form>
 
