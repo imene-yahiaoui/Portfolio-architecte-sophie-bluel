@@ -86,13 +86,66 @@ fetch("http://localhost:5678/api/works")
 
 //entre a la page model
 if (localStorage.getItem("token")) {
-  document.getElementById("login").innerHTML = `<a  href="/FrontEnd/index.html">logout</a>`;
+  //replacer le login par logout     
+  document.getElementById("login").innerText = "logout";
+  //remove btn tout
 document.getElementById("btn").remove(btn_tous);
 
+//creé div de lodification 
 
+document.getElementById("modifer").style.backgroundColor="black";
+//edition
+const edition = document.createElement("p");
+edition.type = "button";
+
+
+const modification =`
+<div>
+<i class="fa-regular fa-pen-to-square"></i>
+<p>Mode édition</p>  </div>`;
+edition.insertAdjacentHTML("afterbegin",modification)
+edition.className = "edition";
+edition.onclick = function () {
+
+//la fonction 
 
 }
-//ortier de la page model
+const edit = document.getElementById("modifer");
+edit.appendChild(edition);
+   
+
+
+//publier les changements
+const changment = document.createElement("button");
+changment.type = "button";
+
+
+const modification_changment =`
+<p>publier les changements</p>  `;
+changment.insertAdjacentHTML("beforeend",modification_changment)
+changment.className = "publier";
+changment.onclick = function () {
+
+//la fonction 
+
+}
+const changements = document.getElementById("modifer");
+changements.appendChild(changment);
+
+
+              
+}
+
+
+
+
+
+//sortier de la page model
 document.getElementById("login").addEventListener("click", function () {
   localStorage.clear();
+
+
 });
+
+
+

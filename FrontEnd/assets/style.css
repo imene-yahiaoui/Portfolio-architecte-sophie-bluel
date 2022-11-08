@@ -322,3 +322,54 @@ padding-bottom: 300px;
 	 
 
   }
+
+  #modifer{
+	
+	height: 59px;
+	padding: 0px;
+margin-bottom: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+column-gap: 26px;
+	
+  }
+  #titre{
+	display:inline;
+  }
+
+  .edition div{
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	column-gap: 14px;
+  }
+  .edition,.publier{
+	font-family: 'Work Sans';
+	font-style: normal;
+	cursor: pointer;
+
+  }
+
+  .edition{
+	color:white;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+	background-color: black;
+	display: flex;
+	flex-direction: row;
+	  }
+ 
+  .publier{
+ font-weight: 500;
+font-size: 14px;
+line-height: 16px;
+text-align: center;
+background-color: white;
+color: black;
+padding: 13px 25px;
+border-radius: 60px;
+border: 1px black;
+  }
+
