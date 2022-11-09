@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	
 }
 ol, ul {
 	list-style: none;
@@ -49,14 +50,20 @@ table {
 /** end reset css**/
 body {
 	max-width: 1140px;
-	margin:auto;
+	
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	margin: 0 auto;
 }
+
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 35px 0;
+	padding-bottom: 81px;
+}
+main{
+	margin: 0 auto;
 }
 section {
 	margin: 50px 0
@@ -115,9 +122,14 @@ li:hover ,li a:hover{
 #introduction {
 	display: flex;
 	align-items: center;
+	width: 90%;
+margin: 0 auto;
 }
-#introduction figure {
-	flex: 1
+#introduction_photo {
+	flex: 1;
+	display: flex;
+    flex-direction: column;
+    row-gap: 25px;
 }
 #introduction img {
 	display: block;
@@ -149,6 +161,14 @@ line-height: 16px;
 	margin-top: 131px;
 	text-align: center;
 	margin-bottom: 60px;
+}
+.portfolio_modifier{
+display: flex;
+align-items: baseline;
+column-gap: 38px;
+justify-content: center;
+width: 90%;
+margin: 0 auto;
 }
 .gallery {
 	width: 90%;
@@ -327,7 +347,7 @@ padding-bottom: 300px;
 	
 	height: 59px;
 	padding: 0px;
-margin-bottom: 20px;
+
 display: flex;
 justify-content: center;
 align-items: center;
@@ -373,3 +393,10 @@ border-radius: 60px;
 border: 1px black;
   }
 
+.modifier{
+	display: flex;
+	flex-direction: row;
+	column-gap: 10px;
+	font-size: 16px;
+	padding: 10px;
+}

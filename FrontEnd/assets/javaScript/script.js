@@ -94,6 +94,10 @@ document.getElementById("btn").remove(btn_tous);
 //creé div de lodification 
 
 document.getElementById("modifer").style.backgroundColor="black";
+
+
+
+
 //edition
 const edition = document.createElement("p");
 edition.type = "button";
@@ -106,13 +110,30 @@ const modification =`
 edition.insertAdjacentHTML("afterbegin",modification)
 edition.className = "edition";
 edition.onclick = function () {
+//la fonction de modifier 
+const modifier =`
+<div class= "modifier">
+<i class="fa-regular fa-pen-to-square"></i>
+<p>modifier</p>  </div>`;
 
-//la fonction 
+document.getElementById("introduction_article").insertAdjacentHTML("afterbegin",modifier)
+document.getElementById("introduction_photo").insertAdjacentHTML("beforeend",modifier)
+document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifier)
+
+
 
 }
 const edit = document.getElementById("modifer");
 edit.appendChild(edition);
    
+
+
+
+
+
+
+
+
 
 
 //publier les changements
