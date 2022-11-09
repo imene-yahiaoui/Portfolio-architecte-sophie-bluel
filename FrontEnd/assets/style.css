@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	
 }
 ol, ul {
 	list-style: none;
@@ -49,14 +50,20 @@ table {
 /** end reset css**/
 body {
 	max-width: 1140px;
-	margin:auto;
+	
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	margin: 0 auto;
 }
+
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 35px 0;
+	padding-bottom: 81px;
+}
+main{
+	margin: 0 auto;
 }
 section {
 	margin: 50px 0
@@ -68,11 +75,15 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
+
 }
 
 h1 > span {
 	font-family: 'Work Sans';
+	font-weight: 400;
+	text-transform: uppercase;
+	padding-top: 5px;
 	font-size:10px;
 	letter-spacing: 0.1em;
 ;
@@ -88,22 +99,37 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
+	column-gap: 25px;
 
 }
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	
 }
-
-li:hover {
+li a{
+	text-decoration:none;
+	color: black;
+}
+li:hover ,li a:hover{
 	color: #B1663C;
+}
+ 
+.fa-instagram{
+	font-size: 26px;
+	cursor: pointer;
 }
 #introduction {
 	display: flex;
 	align-items: center;
+	width: 90%;
+margin: 0 auto;
 }
-#introduction figure {
-	flex: 1
+#introduction_photo {
+	flex: 1;
+	display: flex;
+    flex-direction: column;
+    row-gap: 25px;
 }
 #introduction img {
 	display: block;
@@ -117,20 +143,40 @@ li:hover {
 #introduction h2 {
 	margin-bottom: 1em;
 }
+.paragraphe{
+	width: 404px;
+	height:192px;
+}
 
 #introduction p {
-	margin-bottom: 0.5em;
+	margin-bottom: 0.7em;
+	font-family: 'Work Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 16px;
+
 }
 #portfolio h2 {
+	margin-top: 131px;
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: 60px;
+}
+.portfolio_modifier{
+display: flex;
+align-items: baseline;
+column-gap: 38px;
+justify-content: center;
+width: 90%;
+margin: 0 auto;
 }
 .gallery {
-	width: 100%;
+	width: 90%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	margin: 0 auto;
 }
 
 .gallery img {
@@ -175,9 +221,10 @@ input[type="submit"]{
 	color: white;
 	background-color: #1D6154;
 	margin : 2em auto ;
-	width: 180px;
+	width: 205px;
 	text-align: center;
 	border-radius: 60px ;
+	
 }
 
 footer nav ul {
@@ -192,7 +239,7 @@ footer nav ul {
 	flex-direction: row;
 	justify-content:center;
     column-gap: 15px;
-	
+	margin-bottom: 50px;
 }
 .btn_option,
 #btn_tous
@@ -205,8 +252,14 @@ footer nav ul {
 	color:#1D6154; ;
 	cursor: pointer;
 	width:auto;
-	padding-left: 17px;
-    padding-right: 17px;
+	box-sizing: border-box;
+	padding: 0 18px ;
+	font-family:Syne;
+	font-size:16px;
+	font-weight:700;
+	line-height: 19px;
+text-align: center;
+font-style: normal;
 }
  
 .btn_option:hover,
@@ -215,6 +268,9 @@ footer nav ul {
 	background: #1D6154;
 	color:white;
 }
+
+
+
 /*
 log in
 */
@@ -248,7 +304,7 @@ log in
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 16px;
-	color: #3D3D3D;
+	color: black;
 	position: relative;
 	right: 166px;
   }
@@ -258,7 +314,7 @@ log in
 	}
  
   .login {
-	box-shadow: 3 0 1 14px;
+	box-shadow: 3px 0px 1px 14px;
 	width: 379px;
 height: 51px;
 margin-bottom: 30px;
@@ -266,11 +322,13 @@ background: #FFFFFF;
 box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09); ;
 border: none;
   }
- 
+
   #login-form-submit {
-	border-radius: 60px;
+	border-radius: 60px ;
+	border: 1px #1D6154;
 	width: 179px;
 height: 36px;
+cursor: pointer;
 
   }
 
@@ -279,10 +337,66 @@ color: black;
 padding-bottom: 300px;
   }
 
-  .error{
-	width:90px;
-	height:100px
+  #error{
+ 	color:red;
 	 
 
   }
 
+  #modifer{
+	
+	height: 59px;
+	padding: 0px;
+
+display: flex;
+justify-content: center;
+align-items: center;
+column-gap: 26px;
+	
+  }
+  #titre{
+	display:inline;
+  }
+
+  .edition div{
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	column-gap: 14px;
+  }
+  .edition,.publier{
+	font-family: 'Work Sans';
+	font-style: normal;
+	cursor: pointer;
+
+  }
+
+  .edition{
+	color:white;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+	background-color: black;
+	display: flex;
+	flex-direction: row;
+	  }
+ 
+  .publier{
+ font-weight: 500;
+font-size: 14px;
+line-height: 16px;
+text-align: center;
+background-color: white;
+color: black;
+padding: 13px 25px;
+border-radius: 60px;
+border: 1px black;
+  }
+
+.modifier{
+	display: flex;
+	flex-direction: row;
+	column-gap: 10px;
+	font-size: 16px;
+	padding: 10px;
+}

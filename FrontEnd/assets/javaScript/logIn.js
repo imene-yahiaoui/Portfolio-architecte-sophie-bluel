@@ -1,39 +1,39 @@
- localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4");
-
- 
-const email= document.getElementById("email");
-const password=document.getElementById("password");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
 const error = document.getElementById("error");
-const valid = document.getElementById ("login-form-submit");
+const valid = document.getElementById("login-form-submit");
 const form = document.getElementById("login-form");
 
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
 
- 
-form.addEventListener('submit',function(e){
+  //recupere les inputs
+  const information = new FormData(form);
+  const payload = new URLSearchParams(information);
 
-e.preventDefault();
+  console.log([...payload]);
 
-//recupere les inputs
-const information =new FormData(form);
-const payload= new URLSearchParams(information);
+  fetch("http://localhost:5678/api/users/login", {
+    method: "POST",
 
-console.log([...payload]);
+    body: payload,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      //entre dans la page model
+      if (data.userId == 1) {
+        //recupre le token dans le localStorage
+        localStorage.setItem("token", data.token);
+        //lien ver la page model
+        location.href = "/FrontEnd/index.html";
+      }
 
+      //affiche error
+      else {
+        error.innerText = " Email ou mot de passe ne sont pas correctes";
+      }
+    })
 
-fetch('http://localhost:5678/api/users/login',{
-method:"POST",
- 
-body:payload,
-
-
-})
-.then(res=> res.json())
-.then(data=> console.log(data))
-.catch(err=> console.log((err)));
-
-
-
-}) 
-
-
- 
+    .catch((err) => console.log(err));
+});
