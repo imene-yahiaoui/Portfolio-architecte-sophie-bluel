@@ -526,9 +526,17 @@ margin-top: 8px;
 	color: #FFFFFF;
 
 
+	background: black;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+	margin: 5px;
+	border-radius: 6px;
  }
  .photo_model_efface{
 
 	display:flex;
     justify-content: flex-end;
+	align-items: flex-start;
+    position: relative;
  }

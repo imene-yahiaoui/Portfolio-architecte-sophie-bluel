@@ -139,18 +139,18 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
 
 
       ///afficher le photos 
-
-     
+     /* <div class="icon_model">
+      </div>*/
 
       function photos(works) {
         const photo_modal = `
           <figure >
           <div class="photo_model_efface">
           <img src="${works?.imageUrl} "crossOrigin="anonymous">
-          <div class="icon_model">
+         
           <i class="fa-regular fa-trash-can"></i>
           </div>
-          </div>
+         
             <figcaption>éditer</figcaption>
           </figure>
                 `;
