@@ -31,7 +31,7 @@ form.addEventListener("submit", function (e) {
 
       //affiche error
       else {
-        error.innerText = " Email ou mot de passe ne sont pas correctes";
+        error.innerText = " Erreur dans l’identifiant ou le mot de passe";
       }
     })
 

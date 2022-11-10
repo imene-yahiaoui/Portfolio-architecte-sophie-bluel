@@ -18,10 +18,8 @@ fetch("http://localhost:5678/api/works")
   .then((res) => {
     console.log(res);
     if (res.ok) {
-      
       res.json().then((data) => {
-        
-        console.log(data)
+        console.log(data);
         const numSlid = data.length;
 
         //fetch categoris
@@ -35,17 +33,15 @@ fetch("http://localhost:5678/api/works")
                   document.querySelector(".gallery").innerHTML = "";
 
                   let i = 0;
-                  for (i = 0; i <= numSlid-1; i++) {
+                  for (i = 0; i <= numSlid - 1; i++) {
                     info(data[i]);
                   }
                 }
-
+              
                 btn_tous.addEventListener("click", tout);
 
                 /////cree des btn  object////
                 let count = 0;
-
-               
 
                 for (let count = 0; count <= category.length - 1; count++) {
                   const object = document.createElement("button");
@@ -57,20 +53,19 @@ fetch("http://localhost:5678/api/works")
 
                     for (let i = 0; i <= numSlid; i++) {
                       if (data[i]?.category.name === category[count].name) {
-                        
                         info(data[i]);
                       }
                     }
                   };
-                  ////cacher les btn dans le mode de login 
-                  if (localStorage.getItem("token")) {console.log("Bienvenu Sophie")}
-                  else { const button = document.getElementById("btn");
-                  button.appendChild(object);}
-                  
-                   
+                  ////cacher les btn dans le mode de login
+                  if (localStorage.getItem("token")) {
+                    console.log("Bienvenu Sophie");
+                  } else {
+                    const button = document.getElementById("btn");
+                    button.appendChild(object);
+                  }
                 }
-               
-               
+
                 tout();
               });
             } else {
@@ -84,48 +79,128 @@ fetch("http://localhost:5678/api/works")
 
   .catch((err) => console.log(err));
 
+
+
+
+
+
 //entre a la page model
 if (localStorage.getItem("token")) {
-  //replacer le login par logout     
+  //replacer le login par logout
   document.getElementById("login").innerText = "logout";
   //remove btn tout
-document.getElementById("btn").remove(btn_tous);
+  document.getElementById("btn").remove(btn_tous);
 
-//creé div de lodification 
+  //creé div de lodification
 
-document.getElementById("modifer").style.backgroundColor="black";
+  document.getElementById("modifer").style.backgroundColor = "black";
 
+  //edition
+  const edition = document.createElement("p");
+  edition.type = "button";
 
-
-
-//edition
-const edition = document.createElement("p");
-edition.type = "button";
-
-
-const modification =`
+  const modification = `
 <div>
 <i class="fa-regular fa-pen-to-square"></i>
 <p>Mode édition</p>  </div>`;
-edition.insertAdjacentHTML("afterbegin",modification)
-edition.className = "edition";
-edition.onclick = function () {
-//la fonction de modifier 
-const modifier =`
-<div class= "modifier">
+  edition.insertAdjacentHTML("afterbegin", modification);
+  edition.className = "edition";
+  edition.onclick = function () {
+    //la fonction de modifier
+
+    const modifier = `
+<div id= "modifier">
 <i class="fa-regular fa-pen-to-square"></i>
 <p>modifier</p>  </div>`;
 
-document.getElementById("introduction_article").insertAdjacentHTML("afterbegin",modifier)
-document.getElementById("introduction_photo").insertAdjacentHTML("beforeend",modifier)
-document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifier)
+    const modifier_model = `
+<a href ="#modal"></a>
+<div id= "modifier_model">
+<i class="fa-regular fa-pen-to-square"></i>
+<p>modifier</p>  </div>`;
+
+    /*essaye de superimer le double
+document.getElementById("introduction_article").insertAdjacentHTML("afterbegin",modifier).remove(modifier);
+document.getElementById("introduction_photo").insertAdjacentHTML("beforeend",modifier).remove(modifier);
+document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifier).remove(modifier);
+ */
+    document
+      .getElementById("portfolio_titre")
+      .insertAdjacentHTML("afterend", modifier_model);
+    document
+      .getElementById("introduction_article")
+      .insertAdjacentHTML("afterbegin", modifier);
+    document
+      .getElementById("introduction_photo")
+      .insertAdjacentHTML("beforeend", modifier);
 
 
 
-}
-const edit = document.getElementById("modifer");
-edit.appendChild(edition);
-   
+
+
+      ///afficher le photos 
+
+     
+
+      function photos(works) {
+        const photo_modal = `
+          <figure >
+          <div class="photo_model_efface">
+          <img src="${works?.imageUrl} "crossOrigin="anonymous">
+          <div class="icon_model">
+          <i class="fa-regular fa-trash-can"></i>
+          </div>
+          </div>
+            <figcaption>éditer</figcaption>
+          </figure>
+                `;
+      
+    document.getElementById("model_gallery").insertAdjacentHTML("beforeend", photo_modal);
+      }
+      fetch("http://localhost:5678/api/works")
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          res.json().then((data) => {
+            console.log(data);
+    function affiche_model (){
+            let counter = 0;
+            for (counter = 0; counter <= data.length - 1; counter++) {
+              photos(data[counter]);
+            }
+    
+          }
+          affiche_model ()
+          })
+        }})
+
+          .catch((err) => console.log(err));
+    
+
+
+
+
+
+
+
+    //ouvre modal
+    function ouvre_modal() {
+      console.log("ca marche ca ");
+
+      const target = document.getElementById("modal");
+      target.style.display = null;
+      target.removeAttribute("aria-hidden");
+    }
+    document
+      .getElementById("modifier_model")
+      .addEventListener("click", ouvre_modal);
+
+    //ouvre modal avec clavier
+    window.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        ouvre_modal(e);
+      }
+    });
 
 
 
@@ -136,37 +211,64 @@ edit.appendChild(edition);
 
 
 
-//publier les changements
-const changment = document.createElement("button");
-changment.type = "button";
 
 
-const modification_changment =`
+
+
+
+
+    //FERMER le modal
+    function ferme_modal() {
+      const page = document.getElementById("modal");
+      page.style.display = "none";
+      page.setAttribute("aria-hidden", "true");
+    }
+    document
+      .getElementById("model_fermer")
+      .addEventListener("click", ferme_modal);
+
+    //ferme modal avec clavier
+
+    window.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" || e.key === "Esc") {
+        ferme_modal(e);
+      }
+    });
+  };
+
+  const edit = document.getElementById("modifer");
+  edit.appendChild(edition);
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //publier les changements
+  const changment = document.createElement("button");
+  changment.type = "button";
+
+  const modification_changment = `
 <p>publier les changements</p>  `;
-changment.insertAdjacentHTML("beforeend",modification_changment)
-changment.className = "publier";
-changment.onclick = function () {
-
-//la fonction 
-
+  changment.insertAdjacentHTML("beforeend", modification_changment);
+  changment.className = "publier";
+  changment.onclick = function () {
+    //la fonction
+  };
+  const changements = document.getElementById("modifer");
+  changements.appendChild(changment);
 }
-const changements = document.getElementById("modifer");
-changements.appendChild(changment);
-
-
-              
-}
-
-
-
-
 
 //sortier de la page model
 document.getElementById("login").addEventListener("click", function () {
   localStorage.clear();
-
-
 });
-
-
-
