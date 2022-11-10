@@ -182,7 +182,7 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
 
 
 
-
+let page= null
     //ouvre modal
     function ouvre_modal() {
       console.log("ca marche ca ");
@@ -190,6 +190,8 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
       const target = document.getElementById("modal");
       target.style.display = null;
       target.removeAttribute("aria-hidden");
+      page=target
+      page?.addEventListener('click',ferme_modal)
     }
     document
       .getElementById("modifier_model")
@@ -222,10 +224,13 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
       const page = document.getElementById("modal");
       page.style.display = "none";
       page.setAttribute("aria-hidden", "true");
+
     }
     document
       .getElementById("model_fermer")
       .addEventListener("click", ferme_modal);
+      //
+     
 
     //ferme modal avec clavier
 
