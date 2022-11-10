@@ -39,8 +39,9 @@ fetch("http://localhost:5678/api/works")
                     info(data[i]);
                   }
                 }
-
+               document.getElementById("model_gallery").addEventListener("mousedown",tout);
                 btn_tous.addEventListener("click", tout);
+              
 
                 /////cree des btn  object////
                 let count = 0;
@@ -80,9 +81,12 @@ fetch("http://localhost:5678/api/works")
           .catch((e) => console.log(e));
       });
     }
+
   })
 
   .catch((err) => console.log(err));
+
+
 
 //entre a la page model
 if (localStorage.getItem("token")) {
@@ -111,24 +115,83 @@ edition.insertAdjacentHTML("afterbegin",modification)
 edition.className = "edition";
 edition.onclick = function () {
 //la fonction de modifier 
+ 
 const modifier =`
-<div class= "modifier">
+<div id= "modifier">
+<i class="fa-regular fa-pen-to-square"></i>
+<p>modifier</p>  </div>`;
+ 
+const modifier_model =`
+<a href ="#modal"></a>
+<div id= "modifier_model">
 <i class="fa-regular fa-pen-to-square"></i>
 <p>modifier</p>  </div>`;
 
-document.getElementById("introduction_article").insertAdjacentHTML("afterbegin",modifier)
-document.getElementById("introduction_photo").insertAdjacentHTML("beforeend",modifier)
-document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifier)
 
+ /*essaye de superimer le double
+document.getElementById("introduction_article").insertAdjacentHTML("afterbegin",modifier).remove(modifier);
+document.getElementById("introduction_photo").insertAdjacentHTML("beforeend",modifier).remove(modifier);
+document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifier).remove(modifier);
+ */
+ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifier_model);
+document.getElementById("introduction_article").insertAdjacentHTML("afterbegin",modifier);
+document.getElementById("introduction_photo").insertAdjacentHTML("beforeend",modifier);
+ 
+
+
+
+
+
+
+ //ouvre modal 
+ function ouvre_modal(){
+  console.log("ca marche ca ")
+
+  const target= document.getElementById("modal")
+   target.style.display = null
+   target.removeAttribute('aria-hidden')
+ }
+ document.getElementById("modifier_model").addEventListener("click",ouvre_modal)
+
+ //ouvre modal avec clavier 
+ window.addEventListener('keydown',function(e){
+  if (e.key === "Enter"){
+   ouvre_modal(e)
+  }
+})
+
+
+//FERMER le modal 
+function ferme_modal(){
+  const page= document.getElementById("modal")
+  page.style.display = "none"
+  page.setAttribute('aria-hidden','true') 
+
+}
+document.getElementById("model_fermer").addEventListener("click", ferme_modal)
+
+ //ferme modal avec clavier 
+
+ window.addEventListener('keydown',function(e){
+if (e.key === "Escape" || e.key === "Esc"){
+  ferme_modal(e)
+}
+
+ })
 
 
 }
+
+
+
+
 const edit = document.getElementById("modifer");
 edit.appendChild(edition);
    
 
 
 
+//
 
 
 
