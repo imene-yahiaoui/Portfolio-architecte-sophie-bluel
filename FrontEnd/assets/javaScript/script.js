@@ -184,15 +184,19 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
 
 let page= null
     //ouvre modal
-    function ouvre_modal() {
+    function ouvre_modal(e) {
       console.log("ca marche ca ");
-
+      e.preventDefault
       const target = document.getElementById("modal");
       target.style.display = null;
       target.removeAttribute("aria-hidden");
-      page=target
+      page= target
       page?.addEventListener('click',ferme_modal)
+      page.querySelector('.js_modal_stop').addEventListener('click',stopPropagation)
+      //le modal ferme quand on click d'hors
+    
     }
+   
     document
       .getElementById("modifier_model")
       .addEventListener("click", ouvre_modal);
@@ -205,11 +209,13 @@ let page= null
     });
 
 
+//pour stoper fermer le model quand en click dessu 
 
+const stopPropagation= function(e){
 
+e.stopPropagation()
 
-
-
+}
 
 
 
@@ -220,11 +226,12 @@ let page= null
 
 
     //FERMER le modal
-    function ferme_modal() {
+    function ferme_modal(e) {
+      e.preventDefault
       const page = document.getElementById("modal");
       page.style.display = "none";
       page.setAttribute("aria-hidden", "true");
-
+      page?.removeEventListener('click',ferme_modal)
     }
     document
       .getElementById("model_fermer")
