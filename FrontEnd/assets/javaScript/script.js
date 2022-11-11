@@ -121,11 +121,9 @@ if (localStorage.getItem("token")) {
 <i class="fa-regular fa-pen-to-square"></i>
 <p>modifier</p>  </div>`;
 
-    /*essaye de superimer le double
-document.getElementById("introduction_article").insertAdjacentHTML("afterbegin",modifier).remove(modifier);
-document.getElementById("introduction_photo").insertAdjacentHTML("beforeend",modifier).remove(modifier);
-document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifier).remove(modifier);
- */
+  
+
+ 
     document
       .getElementById("portfolio_titre")
       .insertAdjacentHTML("afterend", modifier_model);
@@ -136,15 +134,16 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
       .getElementById("introduction_photo")
       .insertAdjacentHTML("beforeend", modifier);
 
-
+/*
+  document.querySelector("modifier").replaceWith("modifier");
+document.getElementById("modifier").replaceWith("modifier");
+document.getElementById("modifier").replaceWith("modifier");
+*/
 
 
 
       ///afficher le photos 
-     /* <div class="icon_model">
-      </div>*/
-
-      function photos(works) {
+       function photos(works) {
         const photo_modal = `
           <figure >
           
@@ -189,7 +188,7 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
 
 
 let page= null
-    //ouvre modal
+    /////ouvre modal////
     function ouvre_modal(e) {
       console.log("ca marche ca ");
       e.preventDefault
@@ -206,7 +205,7 @@ let page= null
     document
       .getElementById("modifier_model")
       .addEventListener("click", ouvre_modal);
-
+//la fleche de retoure
       document
       .getElementById("left")
       .addEventListener("click", ouvre_modal);
@@ -235,7 +234,7 @@ e.stopPropagation()
 
 
 
-    //FERMER le modal
+    /////FERMER le modal////
     function ferme_modal(e) {
       e.preventDefault
       const page = document.getElementById("modal");
@@ -270,7 +269,7 @@ e.stopPropagation()
 
 
 
-//ouvre la paje ajoute photo
+/////ouvre la paje ajoute photo///
 
 let model_ajout= null
     //ouvre modal
@@ -311,22 +310,27 @@ e.stopPropagation()
 }
 
 
- //FERMER le modal
+ ////FERMER le modal de ajout photo ///
  function ferme_modal_ajoute(e) {
   e.preventDefault
   const model_ajout = document.getElementById("modal_ajout");
   model_ajout.style.display = "none";
   model_ajout.setAttribute("aria-hidden", "true");
   model_ajout?.removeEventListener('click',ferme_modal_ajoute)
+
+  // suprim les doner quand en ferme 
+  document.getElementById("model_ajout_container").style.display = null;
+  document.getElementById("image_telecharger_images").style.display = "none";
+
 }
 document
   .getElementById("model_fermer_ajouter")
   .addEventListener("click",ferme_modal_ajoute);
-
+//la fleche de retoure
   document
       .getElementById("left")
       .addEventListener("click",ferme_modal_ajoute);
-  //
+
  
 
 //ferme modal avec clavier
@@ -336,6 +340,47 @@ window.addEventListener("keydown", function (e) {
     ferme_modal_ajoute(e);
   }
 });
+
+
+/////telecharger les photos/////
+function telecharger( ) {
+  const input= document.getElementById("img_input")
+  var telecharger_image= "";
+ console.log(input.value)
+    const reader = new FileReader();
+    reader.addEventListener("load",()=>{
+  telecharger_image=reader.result;
+  const photo = document.getElementById("image_telecharger")
+  document.getElementById("image_telecharger_images").style.display = null;
+ 
+  photo.style.backgroundImage=`url(${telecharger_image})`
+ document.getElementById("model_ajout_container").style.display = "none";
+  
+    });
+  reader.readAsDataURL(this.files[0]);
+
+}
+
+document.getElementById("img_input").addEventListener("change",telecharger)
+
+
+
+
+
+  //publier les changements
+  const changment = document.createElement("button");
+  changment.type = "button";
+
+  const modification_changment = `
+<p>publier les changements</p>  `;
+  changment.insertAdjacentHTML("beforeend", modification_changment);
+  changment.className = "publier";
+  changment.onclick = function () {
+    //la fonction
+  };
+  const changements = document.getElementById("modifer");
+  changements.appendChild(changment);
+
 };
 
 
@@ -366,20 +411,6 @@ window.addEventListener("keydown", function (e) {
 
 
 
-
-  //publier les changements
-  const changment = document.createElement("button");
-  changment.type = "button";
-
-  const modification_changment = `
-<p>publier les changements</p>  `;
-  changment.insertAdjacentHTML("beforeend", modification_changment);
-  changment.className = "publier";
-  changment.onclick = function () {
-    //la fonction
-  };
-  const changements = document.getElementById("modifer");
-  changements.appendChild(changment);
 
 
 

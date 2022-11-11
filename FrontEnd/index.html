@@ -52,12 +52,18 @@
 	<section class="model_body">
 	<h1 class="model_titre">Ajout photo</h1>
 	<div id="model_gallery_ajout">
-<div class="model_ajout">
-	 
+		
+<div class="model_ajout" >
+	<div id ="image_telecharger_images" style="display:none">
+	<div id="image_telecharger" ></div>
+</div>
+	<div id="model_ajout_container"style="display:null" >
 	<i class="fa-regular fa-image"></i>
- 
-<button class="model_ajoute ajout">+ Ajouter photo</button>
-   <p>jpg,png:4mo max</p>
+
+<input type="file" id="img_input" accept="image/png , image/jpg"  class="input_img_btn"  ></input>
+<button id="ajout" class="model_ajoute ajout">+ Ajouter photo</button>
+
+   <p>jpg, png : 4mo max</p>
 </div>
 </div>
 <div class="input_modal_ajout">
@@ -66,16 +72,17 @@
 </div>
 <div class="input_modal_ajout">
 <label>Catégorie</label>
-	<select type="select" class="input_modal_ajout_choix">
+	<select type="select" class="input_modal_ajout_choix" value="">
 		
 		 
  <div class="categorie">
+	<option value=""></option>
 <option value="Objets">Objets</option>
 <option value="Appartements">Appartements</option>
 <option value="Hotels & restaurants">Hotels & restaurants</option>	 
 	 
 </div>
-
+</div>
 </input>
 	</select>
 </div>
