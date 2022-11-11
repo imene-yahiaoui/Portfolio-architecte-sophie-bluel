@@ -21,7 +21,7 @@
 
 	</div>
 	
-
+<!--page modal -->
 	<aside id="modal" class="modal" aria-hidden="true" style="display:none">
 
 		<div class ="modal_trigger"></div>
@@ -29,15 +29,71 @@
 		
 		<button id  ="model_fermer">x</button>
 		<section class="model_body">
+		<i class="fa-solid fa-arrows-up-down-left-right "></i>
 		<h1 class="model_titre">Galerie photo</h1>
 		<div id="model_gallery"></div>
 		<div class="btn">
-		<button class="model_ajoute">Ajouter une photo</button>
+		<button id ="model_ajoute" class="model_ajoute">Ajouter une photo</button>
 		<button class="model_suprimer">Supprimer la galerie</button>
 	</div>
 </section>
 	</div>
 	</aside>
+
+<!--page modal ajout photo-->
+<aside id="modal_ajout" class="modal" aria-hidden="true" style="display:none">
+
+	<div class ="modal_trigger"></div>
+	<div class="modal_container js_modal_stop">
+	
+	<button id  ="model_fermer_ajouter">x</button>
+	 <i id ="left" class="fa-sharp fa-solid fa-arrow-left"></i> 
+
+	<section class="model_body">
+	<h1 class="model_titre">Ajout photo</h1>
+	<div id="model_gallery_ajout">
+<div class="model_ajout">
+	 
+	<i class="fa-regular fa-image"></i>
+ 
+<button class="model_ajoute ajout">+ Ajouter photo</button>
+   <p>jpg,png:4mo max</p>
+</div>
+</div>
+<div class="input_modal_ajout">
+<label>Titre</label>
+<input id ="input_model" class="input_model">
+</div>
+<div class="input_modal_ajout">
+<label>Catégorie</label>
+	<select type="select" class="input_modal_ajout_choix">
+		
+		 
+ <div class="categorie">
+<option value="Objets">Objets</option>
+<option value="Appartements">Appartements</option>
+<option value="Hotels & restaurants">Hotels & restaurants</option>	 
+	 
+</div>
+
+</input>
+	</select>
+</div>
+
+
+
+<div class="modal_ajout_valider"> 
+<button class="model_ajoute valider">Valider</button>
+ </div>
+	</div>
+	
+
+
+</section>
+</div>
+</aside>
+
+	
 <header>
 	
  
