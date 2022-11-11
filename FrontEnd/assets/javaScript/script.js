@@ -27,7 +27,9 @@ fetch("http://localhost:5678/api/works")
           .then((res) => {
             console.log(res);
             if (res.ok) {
+            
               res.json().then((category) => {
+                console.log(category)
                 //tout
                 function tout() {
                   document.querySelector(".gallery").innerHTML = "";
@@ -139,18 +141,20 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
 
 
       ///afficher le photos 
-
-     
+     /* <div class="icon_model">
+      </div>*/
 
       function photos(works) {
         const photo_modal = `
           <figure >
+          
           <div class="photo_model_efface">
           <img src="${works?.imageUrl} "crossOrigin="anonymous">
-          <div class="icon_model">
+         
           <i class="fa-regular fa-trash-can"></i>
+       
           </div>
-          </div>
+          
             <figcaption>éditer</figcaption>
           </figure>
                 `;
@@ -167,9 +171,11 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
             let counter = 0;
             for (counter = 0; counter <= data.length - 1; counter++) {
               photos(data[counter]);
+              
             }
     
           }
+         
           affiche_model ()
           })
         }})
@@ -182,17 +188,27 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
 
 
 
-
+let page= null
     //ouvre modal
-    function ouvre_modal() {
+    function ouvre_modal(e) {
       console.log("ca marche ca ");
-
+      e.preventDefault
       const target = document.getElementById("modal");
       target.style.display = null;
       target.removeAttribute("aria-hidden");
+      page= target
+      page?.addEventListener('click',ferme_modal)
+      page.querySelector('.js_modal_stop').addEventListener('click',stopPropagation)
+      //le modal ferme quand on click d'hors
+    
     }
+   
     document
       .getElementById("modifier_model")
+      .addEventListener("click", ouvre_modal);
+
+      document
+      .getElementById("left")
       .addEventListener("click", ouvre_modal);
 
     //ouvre modal avec clavier
@@ -203,11 +219,13 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
     });
 
 
+//pour stoper fermer le model quand en click dessu 
 
+const stopPropagation= function(e){
 
+e.stopPropagation()
 
-
-
+}
 
 
 
@@ -218,14 +236,22 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
 
 
     //FERMER le modal
-    function ferme_modal() {
+    function ferme_modal(e) {
+      e.preventDefault
       const page = document.getElementById("modal");
       page.style.display = "none";
       page.setAttribute("aria-hidden", "true");
+      page?.removeEventListener('click',ferme_modal)
     }
     document
       .getElementById("model_fermer")
       .addEventListener("click", ferme_modal);
+      document
+      .getElementById("model_ajoute")
+      .addEventListener("click",ferme_modal);
+      
+      //
+     
 
     //ferme modal avec clavier
 
@@ -240,6 +266,94 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
   edit.appendChild(edition);
 
   
+
+
+
+
+//ouvre la paje ajoute photo
+
+let model_ajout= null
+    //ouvre modal
+    function ouvre_modal_ajoute(e) {
+      
+     
+      console.log("ca marche ouvre_modal_ajoute ");
+      e.preventDefault
+      const model_page = document.getElementById("modal_ajout");
+      model_page.style.display = null;
+      model_page.removeAttribute("aria-hidden");
+      model_ajout= model_page
+      model_ajout?.addEventListener('click',ferme_modal_ajoute)
+      model_ajout.querySelector('.js_modal_stop').addEventListener('click',stopPropagation)
+      //le modal ferme quand on click d'hors
+    
+    }
+   
+    document
+      .getElementById("model_ajoute")
+      .addEventListener("click", ouvre_modal_ajoute);
+   
+
+    //ouvre modal avec clavier
+    window.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        ouvre_modal_ajoute(e);
+      }
+    });
+
+
+//pour stoper fermer le model quand en click dessu 
+
+const stopPropagation= function(e){
+
+e.stopPropagation()
+
+}
+
+
+ //FERMER le modal
+ function ferme_modal_ajoute(e) {
+  e.preventDefault
+  const model_ajout = document.getElementById("modal_ajout");
+  model_ajout.style.display = "none";
+  model_ajout.setAttribute("aria-hidden", "true");
+  model_ajout?.removeEventListener('click',ferme_modal_ajoute)
+}
+document
+  .getElementById("model_fermer_ajouter")
+  .addEventListener("click",ferme_modal_ajoute);
+
+  document
+      .getElementById("left")
+      .addEventListener("click",ferme_modal_ajoute);
+  //
+ 
+
+//ferme modal avec clavier
+
+window.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" || e.key === "Esc") {
+    ferme_modal_ajoute(e);
+  }
+});
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -266,7 +380,10 @@ document.getElementById("portfolio_titre").insertAdjacentHTML("afterend",modifie
   };
   const changements = document.getElementById("modifer");
   changements.appendChild(changment);
-}
+
+
+
+
 
 //sortier de la page model
 document.getElementById("login").addEventListener("click", function () {
