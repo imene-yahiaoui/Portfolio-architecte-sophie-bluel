@@ -703,7 +703,9 @@ padding-top: 15px;
 
   width: 231px;
 }
-#image_telecharger{
+
+
+#image_telecharger_images{
 
   width: 193px;
   height: 218px;
@@ -715,4 +717,9 @@ padding-top: 15px;
     justify-content: center;
     align-items: center;
     row-gap: 13px;
+}
+#image_telecharger{
+  width: 100%;
+  height: 100%;
+  background-size: cover;
 }

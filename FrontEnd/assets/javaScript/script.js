@@ -320,7 +320,7 @@ e.stopPropagation()
 
   // suprim les doner quand en ferme 
   document.getElementById("model_ajout_container").style.display = null;
-  document.getElementById("image_telecharger").style.display = "none";
+  document.getElementById("image_telecharger_images").style.display = "none";
 
 }
 document
@@ -351,8 +351,8 @@ function telecharger( ) {
     reader.addEventListener("load",()=>{
   telecharger_image=reader.result;
   const photo = document.getElementById("image_telecharger")
-  photo.style.display = null;
-   
+  document.getElementById("image_telecharger_images").style.display = null;
+ 
   photo.style.backgroundImage=`url(${telecharger_image})`
  document.getElementById("model_ajout_container").style.display = "none";
   
