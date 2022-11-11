@@ -600,7 +600,7 @@ log in
 	font-size:60px;
 	background: #E8F1F7;
 	color:#B9C5CC;
-	margin-bottom: 20px;
+  margin-bottom: -20px;
 }
  
 .model_ajout{
@@ -659,6 +659,9 @@ height: 52px;
 	background: #A7A7A7;
 border-radius: 60px;
 }
+.valider:hover{
+  background-color: #1d6154;
+}
 .modal_ajout_valider{
 
 	width: 90%;
@@ -679,4 +682,37 @@ padding-top: 15px;
 }
 .input_modal_ajout_choix option:hover{
 	background-color: #E8F1F6;
+}
+
+.input_img{
+      /* width: auto; */
+      height: 63px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+}
+/*btn telecharger img*/
+.input_img_btn{
+
+  position: relative;
+  position: relative;
+  bottom: -46px;
+  color: transparent;
+  left: -1px;
+  opacity: 0;
+
+  width: 231px;
+}
+#image_telecharger{
+
+  width: 193px;
+  height: 218px;
+
+}
+#model_ajout_container{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 13px;
 }
