@@ -27,9 +27,8 @@ fetch("http://localhost:5678/api/works")
           .then((res) => {
             console.log(res);
             if (res.ok) {
-            
               res.json().then((category) => {
-                console.log(category)
+                console.log(category);
                 //tout
                 function tout() {
                   document.querySelector(".gallery").innerHTML = "";
@@ -39,7 +38,7 @@ fetch("http://localhost:5678/api/works")
                     info(data[i]);
                   }
                 }
-              
+
                 btn_tous.addEventListener("click", tout);
 
                 /////cree des btn  object////
@@ -81,11 +80,6 @@ fetch("http://localhost:5678/api/works")
 
   .catch((err) => console.log(err));
 
-
-
-
-
-
 //entre a la page model
 if (localStorage.getItem("token")) {
   //replacer le login par logout
@@ -121,9 +115,6 @@ if (localStorage.getItem("token")) {
 <i class="fa-regular fa-pen-to-square"></i>
 <p>modifier</p>  </div>`;
 
-  
-
- 
     document
       .getElementById("portfolio_titre")
       .insertAdjacentHTML("afterend", modifier_model);
@@ -134,17 +125,15 @@ if (localStorage.getItem("token")) {
       .getElementById("introduction_photo")
       .insertAdjacentHTML("beforeend", modifier);
 
-/*
+    /*
   document.querySelector("modifier").replaceWith("modifier");
 document.getElementById("modifier").replaceWith("modifier");
 document.getElementById("modifier").replaceWith("modifier");
 */
 
-
-
-      ///afficher le photos 
-       function photos(works) {
-        const photo_modal = `
+    ///afficher le photos
+    function photos(works) {
+      const photo_modal = `
           <figure >
           
           <div class="photo_model_efface">
@@ -157,58 +146,52 @@ document.getElementById("modifier").replaceWith("modifier");
             <figcaption>éditer</figcaption>
           </figure>
                 `;
-      
-    document.getElementById("model_gallery").insertAdjacentHTML("beforeend", photo_modal);
-      }
-      fetch("http://localhost:5678/api/works")
+
+      document
+        .getElementById("model_gallery")
+        .insertAdjacentHTML("beforeend", photo_modal);
+    }
+    fetch("http://localhost:5678/api/works")
       .then((res) => {
         console.log(res);
         if (res.ok) {
           res.json().then((data) => {
             console.log(data);
-    function affiche_model (){
-            let counter = 0;
-            for (counter = 0; counter <= data.length - 1; counter++) {
-              photos(data[counter]);
-              
+            function affiche_model() {
+              let counter = 0;
+              for (counter = 0; counter <= data.length - 1; counter++) {
+                photos(data[counter]);
+              }
             }
-    
-          }
-         
-          affiche_model ()
-          })
-        }})
 
-          .catch((err) => console.log(err));
-    
+            affiche_model();
+          });
+        }
+      })
 
+      .catch((err) => console.log(err));
 
-
-
-
-
-let page= null
+    let page = null;
     /////ouvre modal////
     function ouvre_modal(e) {
       console.log("ca marche ca ");
-      e.preventDefault
+      e.preventDefault;
       const target = document.getElementById("modal");
       target.style.display = null;
       target.removeAttribute("aria-hidden");
-      page= target
-      page?.addEventListener('click',ferme_modal)
-      page.querySelector('.js_modal_stop').addEventListener('click',stopPropagation)
+      page = target;
+      page?.addEventListener("click", ferme_modal);
+      page
+        .querySelector(".js_modal_stop")
+        .addEventListener("click", stopPropagation);
       //le modal ferme quand on click d'hors
-    
     }
-   
+
     document
       .getElementById("modifier_model")
       .addEventListener("click", ouvre_modal);
-//la fleche de retoure
-      document
-      .getElementById("left")
-      .addEventListener("click", ouvre_modal);
+    //la fleche de retoure
+    document.getElementById("left").addEventListener("click", ouvre_modal);
 
     //ouvre modal avec clavier
     window.addEventListener("keydown", function (e) {
@@ -217,40 +200,28 @@ let page= null
       }
     });
 
+    //pour stoper fermer le model quand en click dessu
 
-//pour stoper fermer le model quand en click dessu 
-
-const stopPropagation= function(e){
-
-e.stopPropagation()
-
-}
-
-
-
-
-
-
-
-
+    const stopPropagation = function (e) {
+      e.stopPropagation();
+    };
 
     /////FERMER le modal////
     function ferme_modal(e) {
-      e.preventDefault
+      e.preventDefault;
       const page = document.getElementById("modal");
       page.style.display = "none";
       page.setAttribute("aria-hidden", "true");
-      page?.removeEventListener('click',ferme_modal)
+      page?.removeEventListener("click", ferme_modal);
     }
     document
       .getElementById("model_fermer")
       .addEventListener("click", ferme_modal);
-      document
+    document
       .getElementById("model_ajoute")
-      .addEventListener("click",ferme_modal);
-      
-      //
-     
+      .addEventListener("click", ferme_modal);
+
+    //
 
     //ferme modal avec clavier
 
@@ -264,110 +235,89 @@ e.stopPropagation()
   const edit = document.getElementById("modifer");
   edit.appendChild(edition);
 
-  
+  /////ouvre la paje ajoute photo///
 
-
-
-
-/////ouvre la paje ajoute photo///
-
-let model_ajout= null
-    //ouvre modal
-    function ouvre_modal_ajoute(e) {
-      
-     
-      console.log("ca marche ouvre_modal_ajoute ");
-      e.preventDefault
-      const model_page = document.getElementById("modal_ajout");
-      model_page.style.display = null;
-      model_page.removeAttribute("aria-hidden");
-      model_ajout= model_page
-      model_ajout?.addEventListener('click',ferme_modal_ajoute)
-      model_ajout.querySelector('.js_modal_stop').addEventListener('click',stopPropagation)
-      //le modal ferme quand on click d'hors
-    
-    }
-   
-    document
-      .getElementById("model_ajoute")
-      .addEventListener("click", ouvre_modal_ajoute);
-   
-
-    //ouvre modal avec clavier
-    window.addEventListener("keydown", function (e) {
-      if (e.key === "Enter") {
-        ouvre_modal_ajoute(e);
-      }
-    });
-
-
-//pour stoper fermer le model quand en click dessu 
-
-const stopPropagation= function(e){
-
-e.stopPropagation()
-
-}
-
-
- ////FERMER le modal de ajout photo ///
- function ferme_modal_ajoute(e) {
-  e.preventDefault
-  const model_ajout = document.getElementById("modal_ajout");
-  model_ajout.style.display = "none";
-  model_ajout.setAttribute("aria-hidden", "true");
-  model_ajout?.removeEventListener('click',ferme_modal_ajoute)
-
-  // suprim les doner quand en ferme 
-  document.getElementById("model_ajout_container").style.display = null;
-  document.getElementById("image_telecharger_images").style.display = "none";
-
-}
-document
-  .getElementById("model_fermer_ajouter")
-  .addEventListener("click",ferme_modal_ajoute);
-//la fleche de retoure
-  document
-      .getElementById("left")
-      .addEventListener("click",ferme_modal_ajoute);
-
- 
-
-//ferme modal avec clavier
-
-window.addEventListener("keydown", function (e) {
-  if (e.key === "Escape" || e.key === "Esc") {
-    ferme_modal_ajoute(e);
+  let model_ajout = null;
+  //ouvre modal
+  function ouvre_modal_ajoute(e) {
+    console.log("ca marche ouvre_modal_ajoute ");
+    e.preventDefault;
+    const model_page = document.getElementById("modal_ajout");
+    model_page.style.display = null;
+    model_page.removeAttribute("aria-hidden");
+    model_ajout = model_page;
+    model_ajout?.addEventListener("click", ferme_modal_ajoute);
+    model_ajout
+      .querySelector(".js_modal_stop")
+      .addEventListener("click", stopPropagation);
+    //le modal ferme quand on click d'hors
   }
-});
 
+  document
+    .getElementById("model_ajoute")
+    .addEventListener("click", ouvre_modal_ajoute);
 
-/////telecharger les photos/////
-function telecharger( ) {
-  const input= document.getElementById("img_input")
-  var telecharger_image= "";
- console.log(input.value)
+  //ouvre modal avec clavier
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      ouvre_modal_ajoute(e);
+    }
+  });
+
+  //pour stoper fermer le model quand en click dessu
+
+  const stopPropagation = function (e) {
+    e.stopPropagation();
+  };
+
+  ////FERMER le modal de ajout photo ///
+  function ferme_modal_ajoute(e) {
+    e.preventDefault;
+    const model_ajout = document.getElementById("modal_ajout");
+    model_ajout.style.display = "none";
+    model_ajout.setAttribute("aria-hidden", "true");
+    model_ajout?.removeEventListener("click", ferme_modal_ajoute);
+
+    // suprim les doner quand en ferme
+    document.getElementById("model_ajout_container").style.display = null;
+    document.getElementById("image_telecharger_images").style.display = "none";
+  }
+  document
+    .getElementById("model_fermer_ajouter")
+    .addEventListener("click", ferme_modal_ajoute);
+  //la fleche de retoure
+  document.getElementById("left").addEventListener("click", ferme_modal_ajoute);
+
+  //ferme modal avec clavier
+
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" || e.key === "Esc") {
+      ferme_modal_ajoute(e);
+    }
+  });
+
+  /////telecharger les photos/////
+  function telecharger() {
+    const input = document.getElementById("img_input");
+    var telecharger_image = "";
+    console.log(input.value);
     const reader = new FileReader();
-    reader.addEventListener("load",()=>{
-  telecharger_image=reader.result;
-  const photo = document.getElementById("image_telecharger")
-  document.getElementById("image_telecharger_images").style.display = null;
- 
-  photo.style.backgroundImage=`url(${telecharger_image})`
- document.getElementById("model_ajout_container").style.display = "none";
-  
+    reader.addEventListener("load", () => {
+      telecharger_image = reader.result;
+      const photo = document.getElementById("image_telecharger");
+      document.getElementById("image_telecharger_images").style.display = null;
+
+      photo.style.backgroundImage = `url(${telecharger_image})`;
+      document.getElementById("model_ajout_container").style.display = "none";
     });
-  reader.readAsDataURL(this.files[0]);
+    reader.readAsDataURL(this.files[0]);
+  }
 
-}
+  document.getElementById("img_input").addEventListener("change", telecharger);
 
-document.getElementById("img_input").addEventListener("change",telecharger)
+  //////////msg errur formulair ajout photo/////////
 
-
-
-
-
-  //publier les changements
+  ///////////////publier les changements
   const changment = document.createElement("button");
   changment.type = "button";
 
@@ -380,41 +330,7 @@ document.getElementById("img_input").addEventListener("change",telecharger)
   };
   const changements = document.getElementById("modifer");
   changements.appendChild(changment);
-
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 //sortier de la page model
 document.getElementById("login").addEventListener("click", function () {
