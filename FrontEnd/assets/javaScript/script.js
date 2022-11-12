@@ -403,19 +403,21 @@ function ferme_modal_ajoute(e) {
   document.getElementById("image_telecharger_images").style.display = "none";
 //suprime les doner de titre 
 let vide= ""
-const input_titre_ajout = document.getElementById("input_model") 
-input_titre_ajout.value= "";
+const input_titre_ajout = document.getElementById("input_model") ;
+input_titre_ajout.value= null;
    
-  //suprime les donner de categore
-const category = document.getElementById("categorie").value 
-
-  
 //suprime le url des photos
-const input_photo_url = document.getElementById("img_input")
-input_photo_url.value= "";
+const input_photo_url = document.getElementById("img_input");
+input_photo_url.value= null;
+
+  //suprime les donner de categore
+const category = document.getElementById("categorie");
+category.value  = category.value[0];
+  
+
 
 //suprimer msg err
-document.getElementById("msg_err").innerHTML=""
+document.getElementById("msg_err").innerHTML="";
 }
 document
   .getElementById("model_fermer_ajouter")
