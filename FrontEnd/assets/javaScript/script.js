@@ -270,32 +270,7 @@ document.getElementById("modifier").replaceWith("modifier");
     e.stopPropagation();
   };
 
-  ////FERMER le modal de ajout photo ///
-  function ferme_modal_ajoute(e) {
-    e.preventDefault;
-    const model_ajout = document.getElementById("modal_ajout");
-    model_ajout.style.display = "none";
-    model_ajout.setAttribute("aria-hidden", "true");
-    model_ajout?.removeEventListener("click", ferme_modal_ajoute);
-
-    // suprim les doner quand en ferme
-    document.getElementById("model_ajout_container").style.display = null;
-    document.getElementById("image_telecharger_images").style.display = "none";
-  }
-  document
-    .getElementById("model_fermer_ajouter")
-    .addEventListener("click", ferme_modal_ajoute);
-  //la fleche de retoure
-  document.getElementById("left").addEventListener("click", ferme_modal_ajoute);
-
-  //ferme modal avec clavier
-
-  window.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" || e.key === "Esc") {
-      ferme_modal_ajoute(e);
-    }
-  });
-
+  
   /////telecharger les photos/////
   function telecharger() {
     const input = document.getElementById("img_input");
@@ -307,15 +282,121 @@ document.getElementById("modifier").replaceWith("modifier");
       const photo = document.getElementById("image_telecharger");
       document.getElementById("image_telecharger_images").style.display = null;
 
-      photo.style.backgroundImage = `url(${telecharger_image})`;
+      photo.style.backgroundImage = `url(${telecharger_image} )`;
       document.getElementById("model_ajout_container").style.display = "none";
+
+
+
+
+     
+     
+     
+
+
+
+
     });
     reader.readAsDataURL(this.files[0]);
   }
 
   document.getElementById("img_input").addEventListener("change", telecharger);
 
-  //////////msg errur formulair ajout photo/////////
+  
+  /*
+
+  //////////msg errer formulair ajout photo/////////
+
+  function valid(){
+
+    if( photo.style.backgroundImage == empty){
+  document.getElementById("msg_err").innerText="il faut donne nom "
+    }
+  }
+  document.getElementById("btn_valider").addEventListener("click",valid)
+  */
+
+ ///////////////////////////////ajouter///////////////////////
+ const form_ajout = document.getElementById("modal_ajout");
+ form_ajout.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+//recuper les donner de titre
+  const input_titre_ajout = document.getElementById("input_model").value
+  console.log(input_titre_ajout)
+//recuper les donner de categore
+const category = document.getElementById("categorie").value
+console.log(category)
+//recuper le url des photos
+const input_photo_url = document.getElementById("img_input").value
+console.log(input_photo_url)
+  /*
+//fetch works
+fetch("http://localhost:5678/api/works", {
+method:"push",
+body:
+ `
+<figure >
+<img src="${telecharger_image}>
+  <figcaption>${input_titre_ajout}</figcaption>
+</figure>
+      `
+      ,
+})
+  .then((res) => {
+    console.log(res);
+    if (res.ok) {
+      res.json().then((data) => {
+        console.log(data);
+    
+      })}
+    })
+   */
+
+/*
+const input_titre_ajout = document.getElementById("input_model").value
+ 
+console.log(input_titre_ajout.value);
+*/
+})
+
+
+////FERMER le modal de ajout photo ///
+function ferme_modal_ajoute(e) {
+  e.preventDefault;
+  const model_ajout = document.getElementById("modal_ajout");
+  model_ajout.style.display = "none";
+  model_ajout.setAttribute("aria-hidden", "true");
+  model_ajout?.removeEventListener("click", ferme_modal_ajoute);
+
+  // suprim les doner quand en ferme
+  document.getElementById("model_ajout_container").style.display = null;
+  document.getElementById("image_telecharger_images").style.display = "none";
+//suprime les doner de titre 
+let vide= ""
+const input_titre_ajout = document.getElementById("input_model") 
+input_titre_ajout.value= "";
+   
+  //suprime les donner de categore
+const category = document.getElementById("categorie") 
+category="";
+  
+//suprime le url des photos
+const input_photo_url = document.getElementById("img_input").value
+}
+document
+  .getElementById("model_fermer_ajouter")
+  .addEventListener("click", ferme_modal_ajoute);
+//la fleche de retoure
+document.getElementById("left").addEventListener("click", ferme_modal_ajoute);
+
+//ferme modal avec clavier
+
+window.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" || e.key === "Esc") {
+    ferme_modal_ajoute(e);
+  }
+});
+
 
   ///////////////publier les changements
   const changment = document.createElement("button");

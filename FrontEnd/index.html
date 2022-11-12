@@ -41,7 +41,7 @@
 	</aside>
 
 	<!--page modal ajout photo-->
-	<aside id="modal_ajout" class="modal" aria-hidden="true" style="display:none">
+	<form id="modal_ajout" class="modal" aria-hidden="true" style="display:none">
 
 		<div class="modal_trigger"></div>
 		<div class="modal_container js_modal_stop">
@@ -60,19 +60,21 @@
 						<div id="model_ajout_container" style="display:contents">
 							<i class="fa-regular fa-image"></i>
 
-							<input type="file" id="img_input" accept="image/png , image/jpg" class="input_img_btn">
+							<input for ="imageUrl" type="file" id="img_input" accept="image/png , image/jpg" class="input_img_btn">
 							<button id="ajout" class="model_ajoute ajout">+ Ajouter photo</button>
 
 							<p>jpg, png : 4mo max</p>
 						</div>
 					</div>
+					<label id="msg_err"></label>
 					<div class="input_modal_ajout">
 						<label>Titre</label>
-						<input id="input_model" class="input_model">
+						<input for="title" id="input_model" class="input_model"required>
 					</div>
 					<div class="input_modal_ajout">
 						<label>Catégorie</label>
-						<select class="input_modal_ajout_choix">
+						<select id="categorie" class="input_modal_ajout_choix">
+							<option value=" " >  </option>
 							<option value="Objets">Objets</option>
 							<option value="Appartements">Appartements</option>
 							<option value="Hotels & restaurants">Hotels & restaurants</option>
@@ -85,14 +87,14 @@
 
 
 				<div class="modal_ajout_valider">
-					<button class="model_ajoute valider">Valider</button>
+					<button  type="submit" id ="btn_valider" class="model_ajoute valider">Valider</button>
 				</div>
 			</section>
 		</div>
 
 
 
-	</aside>
+	</form>
 
 
 	<header>
