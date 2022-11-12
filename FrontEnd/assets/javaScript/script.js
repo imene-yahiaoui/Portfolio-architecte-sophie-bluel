@@ -304,7 +304,7 @@ document.getElementById("modifier").replaceWith("modifier");
   
   /*
 
-  //////////msg errer formulair ajout photo/////////
+ 
 
   function valid(){
 
@@ -329,6 +329,36 @@ console.log(category)
 //recuper le url des photos
 const input_photo_url = document.getElementById("img_input").value
 console.log(input_photo_url)
+
+
+
+
+
+ //////////msg errer formulair ajout photo/////////
+  
+if (input_photo_url === ''|| input_photo_url === null || category === ''|| category === null || input_titre_ajout === ''|| input_titre_ajout === null ){
+  document.getElementById("msg_err").innerHTML="il faut remplire le formulair "
+   
+}
+else{
+  document.getElementById("msg_err").innerHTML=""
+}
+/*
+if (input_titre_ajout === ''|| input_titre_ajout === null){
+  document.getElementById("msg_err").innerHTML="il faut ajouter un nom "
+   
+}
+else{
+  document.getElementById("msg_err").innerHTML=""
+}
+if (category === ''|| category === null){
+  document.getElementById("msg_err").innerHTML="il faut choisir category "
+   
+}
+else{
+  document.getElementById("msg_err").innerHTML=""
+}
+*/
   /*
 //fetch works
 fetch("http://localhost:5678/api/works", {
@@ -377,11 +407,15 @@ const input_titre_ajout = document.getElementById("input_model")
 input_titre_ajout.value= "";
    
   //suprime les donner de categore
-const category = document.getElementById("categorie") 
-category="";
+const category = document.getElementById("categorie").value 
+
   
 //suprime le url des photos
-const input_photo_url = document.getElementById("img_input").value
+const input_photo_url = document.getElementById("img_input")
+input_photo_url.value= "";
+
+//suprimer msg err
+document.getElementById("msg_err").innerHTML=""
 }
 document
   .getElementById("model_fermer_ajouter")
