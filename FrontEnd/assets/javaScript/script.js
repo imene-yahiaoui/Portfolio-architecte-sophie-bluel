@@ -302,18 +302,7 @@ document.getElementById("modifier").replaceWith("modifier");
   document.getElementById("img_input").addEventListener("change", telecharger);
 
   
-  /*
-
- 
-
-  function valid(){
-
-    if( photo.style.backgroundImage == empty){
-  document.getElementById("msg_err").innerText="il faut donne nom "
-    }
-  }
-  document.getElementById("btn_valider").addEventListener("click",valid)
-  */
+  
 
  ///////////////////////////////ajouter///////////////////////
  const form_ajout = document.getElementById("modal_ajout");
@@ -324,14 +313,27 @@ document.getElementById("modifier").replaceWith("modifier");
   const input_titre_ajout = document.getElementById("input_model").value
   console.log(input_titre_ajout)
 //recuper les donner de categore
+let category_Id= 0
 const category = document.getElementById("categorie").value
-console.log(category)
+
+fetch("http://localhost:5678/api/categories")
+.then((res) => {
+  console.log(res);
+  if (res.ok) {
+    res.json().then((list_data) => {
+      for(i=0 ;i<= list_data.length ; i++){
+        if (category == list_data[i]?.name){
+          category_Id = list_data[i]?.id
+        }
+      }
+ 
+ 
+console.log(category_Id)
+
 //recuper le url des photos
 const input_photo_url = document.getElementById("img_input").value
 console.log(input_photo_url)
-
-
-
+//categoryid 
 
 
  //////////msg errer formulair ajout photo/////////
@@ -343,51 +345,34 @@ if (input_photo_url === ''|| input_photo_url === null || category === ''|| categ
 else{
   document.getElementById("msg_err").innerHTML=""
 }
-/*
-if (input_titre_ajout === ''|| input_titre_ajout === null){
-  document.getElementById("msg_err").innerHTML="il faut ajouter un nom "
-   
-}
-else{
-  document.getElementById("msg_err").innerHTML=""
-}
-if (category === ''|| category === null){
-  document.getElementById("msg_err").innerHTML="il faut choisir category "
-   
-}
-else{
-  document.getElementById("msg_err").innerHTML=""
-}
-*/
-  /*
-//fetch works
-fetch("http://localhost:5678/api/works", {
-method:"push",
-body:
- `
-<figure >
-<img src="${telecharger_image}>
-  <figcaption>${input_titre_ajout}</figcaption>
-</figure>
-      `
-      ,
-})
-  .then((res) => {
-    console.log(res);
-    if (res.ok) {
-      res.json().then((data) => {
-        console.log(data);
-    
-      })}
-    })
-   */
 
-/*
-const input_titre_ajout = document.getElementById("input_model").value
+
+
  
-console.log(input_titre_ajout.value);
-*/
-})
+const information = new FormData(form_ajout);
+
+const payload = new URLSearchParams(information);
+
+  console.log([...payload]);
+/*
+const payload=[{
+  "imageUrl": input_photo_url,
+  "title": input_titre_ajout,
+ "categoryId":category_Id,
+
+      }]
+      console.log([...payload]);
+  */
+
+
+})    
+        }})
+      
+      
+    
+  })
+
+
 
 
 ////FERMER le modal de ajout photo ///
