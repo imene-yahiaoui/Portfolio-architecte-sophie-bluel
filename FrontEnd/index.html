@@ -41,7 +41,8 @@
 	</aside>
 
 	<!--page modal ajout photo-->
-	<form id="modal_ajout" class="modal" aria-hidden="true" style="display:none">
+	 
+	<form name="form_ajout"  method="post" id="modal_ajout" class="modal" aria-hidden="true" style="display:none">
 
 		<div class="modal_trigger"></div>
 		<div class="modal_container js_modal_stop">
@@ -60,8 +61,8 @@
 						<div id="model_ajout_container" style="display:contents">
 							<i class="fa-regular fa-image"></i>
 
-							<input for ="imageUrl" type="file" id="img_input" accept="image/png , image/jpg" class="input_img_btn">
-							<button id="ajout" class="model_ajoute ajout">+ Ajouter photo</button>
+							<input name="image"  type="file"  id="img_input" accept="image/png , image/jpg" class="input_img_btn"  >
+							<button id="ajout"  class="model_ajoute ajout">+ Ajouter photo</button>
 
 							<p>jpg, png : 4mo max</p>
 						</div>
@@ -69,15 +70,15 @@
 					<label id="msg_err"></label>
 					<div class="input_modal_ajout">
 						<label>Titre</label>
-						<input for="title" id="input_model" class="input_model">
+						<input name="title"  for="title"  id="input_model" class="input_model">
 					</div>
 					<div class="input_modal_ajout">
 						<label>Catégorie</label>
-						<select id="categorie" class="input_modal_ajout_choix">
-							<option value=" " >  </option>
-							<option value="Objets">Objets</option>
-							<option value="Appartements">Appartements</option>
-							<option value="Hotels & restaurants">Hotels & restaurants</option>
+						<select name="categoryId" id="categorie" class="input_modal_ajout_choix">
+							<option ></option> 
+							<option value="1"   >Objets</option>
+							<option value="2" >Appartements</option>
+							<option value="3" >Hotels & restaurants</option>
 
 						</select>
 
@@ -95,7 +96,6 @@
 
 
 	</form>
-
 
 	<header>
 

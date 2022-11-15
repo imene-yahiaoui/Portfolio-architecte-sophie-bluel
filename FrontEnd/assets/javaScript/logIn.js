@@ -17,6 +17,7 @@ form.addEventListener("submit", function (e) {
     method: "POST",
 
     body: payload,
+   
   })
     .then((res) => res.json())
     .then((data) => {
