@@ -42,7 +42,7 @@
 
 	<!--page modal ajout photo-->
 	 
-	<form name="form_ajout"  method="post" id="modal_ajout" class="modal" aria-hidden="true" style="display:none">
+	<form name="form_ajout"  method="post" action="#" id="modal_ajout" class="modal" aria-hidden="true" style="display:none"  enctype="multipart/form-data">
 
 		<div class="modal_trigger"></div>
 		<div class="modal_container js_modal_stop">
@@ -61,7 +61,7 @@
 						<div id="model_ajout_container" style="display:contents">
 							<i class="fa-regular fa-image"></i>
 
-							<input name="image"  type="file"  id="img_input" accept="image/png , image/jpg" class="input_img_btn"  >
+							<input name="image"  type="file"  id="img_input" accept="image/png , image/jpg  " class="input_img_btn"  >
 							<button id="ajout"  class="model_ajoute ajout">+ Ajouter photo</button>
 
 							<p>jpg, png : 4mo max</p>

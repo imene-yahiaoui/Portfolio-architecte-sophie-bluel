@@ -1,3 +1,5 @@
+ 
+
 const btn_tous = document.getElementById("btn_tous");
 
 const gallery = document.querySelector(".gallery");
@@ -174,7 +176,7 @@ document.getElementById("modifier").replaceWith("modifier");
     let page = null;
     /////ouvre modal////
     function ouvre_modal(e) {
-      console.log("ca marche ca ");
+     
       e.preventDefault;
       const target = document.getElementById("modal");
       target.style.display = null;
@@ -285,9 +287,9 @@ document.getElementById("modifier").replaceWith("modifier");
   let model_ajout = null;
   //ouvre modal
   function ouvre_modal_ajoute(e) {
-    console.log("ca marche ouvre_modal_ajoute ");
+   
     e.preventDefault;
-    const model_page = document.getElementById("modal_ajout");
+     model_page =document.getElementById("modal_ajout");
     model_page.style.display = null;
     model_page.removeAttribute("aria-hidden");
     model_ajout = model_page;
@@ -321,7 +323,7 @@ document.getElementById("modifier").replaceWith("modifier");
     const input = document.getElementById("img_input");
    
     var telecharger_image = "";
-    console.log(input.value);
+   
     const reader = new FileReader();
     reader.addEventListener("load", () => {
       telecharger_image = reader.result;
@@ -339,21 +341,78 @@ document.getElementById("modifier").replaceWith("modifier");
 
   document.getElementById("img_input").addEventListener("change", telecharger);
 
+document.getElementById('modal_ajout').addEventListener('submit',function(e){
+e.preventDefault();
+
+const image= document.getElementById('img_input').files[0];
+if 
+(document.getElementById('img_input').files[0].size< 4 *1048576){
 
 
+let token = (localStorage.getItem("token"));
+console.log(token)
+const titre=document.getElementById('input_model').value
+const category = document.getElementById('categorie').value;
+
+const formData = new FormData();
+formData.append('image',image)
+formData.append('title',titre)
+formData.append('categoryId',category);
+
+ 
+
+fetch ('http://localhost:5678/api/works',{
+ method:"POST",
+ headers: {
+  
+   'Authorization':`Bearer ${token}`,
+
+'accept': 'application/json',
+   
+   'Content-Type' : 'multipart/form-data;boundary=---------------------------6089990234170057781666515331;application/json'
+  //'Content-Type': 'application/json',
+},
+ body:formData,
+
+})
+
+
+
+.then(res=>res.json())
+.then (data => console.log("yeeeeeeeeeeees"+data))
+.catch(err => console.log("nooooooooooooooooo"))
+}
+else{
+  console.log("la photo est trop grand ")
+  
+}
+
+const input_photo_url = document.getElementById("img_input");
+ input_photo_url.value=null;
+ 
+ const titre_sansvalu=document.getElementById('input_model') ;
+ titre_sansvalu.value=null;
+ const category_sans_valu = document.getElementById('categorie');
+ category_sans_valu.value=null;
+  // suprim les doner quand en ferme
+  document.getElementById("model_ajout_container").style.display = null;
+  document.getElementById("image_telecharger_images").style.display = "none";
+
+})
 
 ////Envoi de fichiers via un objet FormData
-  
+ /*
   var form = document.forms.namedItem("form_ajout");
   form.addEventListener('submit', function(ev) {
   
   
         oData = new FormData(form);
-  
+
    
   
     var oReq = new XMLHttpRequest();
     oReq.open("POST", "http://localhost:5678/api/works", true);
+ 
     oReq.onload = function(oEvent) {
       if (oReq.status == 200) {
         console.log("envoier")
@@ -493,7 +552,7 @@ function ferme_modal_ajoute(e) {
   document.getElementById("model_ajout_container").style.display = null;
   document.getElementById("image_telecharger_images").style.display = "none";
 //suprime les doner de titre 
-let vide= ""
+
 const input_titre_ajout = document.getElementById("input_model") ;
 input_titre_ajout.value= null;
    
