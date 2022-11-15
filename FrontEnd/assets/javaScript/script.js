@@ -139,7 +139,7 @@ document.getElementById("modifier").replaceWith("modifier");
           <div class="photo_model_efface">
           <img src="${works?.imageUrl} "crossOrigin="anonymous">
          
-          <i class="fa-regular fa-trash-can"></i>
+          <i id="corbielle" class="fa-regular fa-trash-can"></i>
        
           </div>
           
@@ -235,7 +235,52 @@ document.getElementById("modifier").replaceWith("modifier");
   const edit = document.getElementById("modifer");
   edit.appendChild(edition);
 
-  /////ouvre la paje ajoute photo///
+
+
+  /*
+/////////////////delet ///////////////////////
+ 
+  fetch("http://localhost:5678/api/works")
+    .then((res) => {
+      console.log(res);
+      if (res.ok) {
+        res.json().then((info) => {
+          console.log(info[3].id);
+          const id = 0
+  for(i=0 ;i<= info.length ; i++){
+    console.log(info[1].id)}
+   
+  console.log(info[2].id);
+  const m= document.getElementById('corbielle')
+  m.onclick= function () {
+    const les_photo= document.getElementById("model_gallery")
+    console.log(les_photo.length)
+   
+  }
+  /*
+    fetch('http://localhost:5678/api/works/' + id, {
+      method: 'DELETE',
+      headers: { 
+        'Authorization': 'Bearer token',
+            }
+    })
+    .then(res => res.text()) // or res.json()
+    .then(res => console.log(res))
+  
+        })
+   } })
+  
+ 
+  
+  document.getElementById('corbielle')?.addEventListener('click', Delet);
+   
+  
+  */
+
+
+
+
+  /////ouvre la page ajoute photo///
 
   let model_ajout = null;
   //ouvre modal
@@ -274,6 +319,7 @@ document.getElementById("modifier").replaceWith("modifier");
   /////telecharger les photos/////
   function telecharger() {
     const input = document.getElementById("img_input");
+   
     var telecharger_image = "";
     console.log(input.value);
     const reader = new FileReader();
@@ -284,14 +330,6 @@ document.getElementById("modifier").replaceWith("modifier");
 
       photo.style.backgroundImage = `url(${telecharger_image} )`;
       document.getElementById("model_ajout_container").style.display = "none";
-
-
-
-
-     
-     
-     
-
 
 
 
@@ -306,33 +344,22 @@ document.getElementById("modifier").replaceWith("modifier");
 
  ///////////////////////////////ajouter///////////////////////
  const form_ajout = document.getElementById("modal_ajout");
+ 
  form_ajout.addEventListener("submit", function (e) {
   e.preventDefault();
-
+ 
 //recuper les donner de titre
   const input_titre_ajout = document.getElementById("input_model").value
   console.log(input_titre_ajout)
-//recuper les donner de categore
+//recuper les donner de categore*/
 let category_Id= 0
 const category = document.getElementById("categorie").value
 
-fetch("http://localhost:5678/api/categories")
-.then((res) => {
-  console.log(res);
-  if (res.ok) {
-    res.json().then((list_data) => {
-      for(i=0 ;i<= list_data.length ; i++){
-        if (category == list_data[i]?.name){
-          category_Id = list_data[i]?.id
-        }
-      }
- 
- 
-console.log(category_Id)
 
 //recuper le url des photos
 const input_photo_url = document.getElementById("img_input").value
-console.log(input_photo_url)
+console.log(`"laphoto"${input_photo_url}`)
+
 //categoryid 
 
 
@@ -347,32 +374,83 @@ else{
 }
 
 
+const tokens = ' Bearer localStorage.getItem("token") '
+ /*
+//const information = new FormData(form_ajout);
+const ThreeStringProps = {imageUrl: input_photo_url, title: input_titre_ajout, categoryId: category}
+const payload = new URLSearchParams(ThreeStringProps);
 
- 
-const information = new FormData(form_ajout);
-
-const payload = new URLSearchParams(information);
-
-  console.log([...payload]);
-/*
-const payload=[{
-  "imageUrl": input_photo_url,
-  "title": input_titre_ajout,
- "categoryId":category_Id,
-
-      }]
-      console.log([...payload]);
-  */
-
-
-})    
-        }})
-      
-      
-    
+  console.log(...payload);
+*/
+ /*
+  
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      'accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization':  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2ODQ0NTI5OSwiZXhwIjoxNjY4NTMxNjk5fQ.tEz9t6y7qcAMRPWORanagg-jkUKCIByVp1y8HF_fguc'
+    },
+    body: JSON.stringify({
+     "image": '@479176441_wide.jpg',
+     "title": input_titre_ajout,
+     "categoryId": category,
+    }
+    ),
+         
   })
+  .then (res=> {
+    if (res.ok){console.log("post request bien envoyer")}
+    else {console.log ("PAS GRAVE ESSAYE ENCORE ")}
+    return res
+
+  })
+   
+    .then(res => res.json())
+    .then((data) => console.log(data));
+    console.log(localStorage.getItem("token"))
+   
+
+ */
 
 
+var formElement = document.getElementById("modal_ajout");
+var request = new XMLHttpRequest();
+request.open("POST", "http://localhost:5678/api/works");
+
+
+request.send(new FormData(formElement));
+
+
+
+ //recupere les inputs
+ /*
+ const form= document.getElementById("modal_ajout");
+ const information = new FormData(form);
+ const payload = new URLSearchParams(information);
+
+ console.log([...payload]);
+
+ fetch("http://localhost:5678/api/works", {
+   method: "POST",
+   headers: {
+    'accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization':  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2ODQ0NTI5OSwiZXhwIjoxNjY4NTMxNjk5fQ.tEz9t6y7qcAMRPWORanagg-jkUKCIByVp1y8HF_fguc'
+  },
+  body: JSON.stringify({payload}),
+  
+ })
+   .then((res) => res.json())
+   .then((data) => {
+     console.log(data);
+   })
+*/
+})    
+ 
+      
+      
+ 
 
 
 ////FERMER le modal de ajout photo ///
