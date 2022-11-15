@@ -339,8 +339,36 @@ document.getElementById("modifier").replaceWith("modifier");
 
   document.getElementById("img_input").addEventListener("change", telecharger);
 
+
+
+
+////Envoi de fichiers via un objet FormData
+  
+  var form = document.forms.namedItem("form_ajout");
+  form.addEventListener('submit', function(ev) {
   
   
+        oData = new FormData(form);
+  
+   
+  
+    var oReq = new XMLHttpRequest();
+    oReq.open("POST", "http://localhost:5678/api/works", true);
+    oReq.onload = function(oEvent) {
+      if (oReq.status == 200) {
+        console.log("envoier")
+         } else {
+          console.log("pas envoier"+ oReq.status) 
+      }
+    };
+  
+    oReq.send(oData);
+    ev.preventDefault();
+  }, false);
+
+
+
+  /*
 
  ///////////////////////////////ajouter///////////////////////
  const form_ajout = document.getElementById("modal_ajout");
@@ -351,7 +379,7 @@ document.getElementById("modifier").replaceWith("modifier");
 //recuper les donner de titre
   const input_titre_ajout = document.getElementById("input_model").value
   console.log(input_titre_ajout)
-//recuper les donner de categore*/
+//recuper les donner de categore
 let category_Id= 0
 const category = document.getElementById("categorie").value
 
@@ -413,7 +441,7 @@ const payload = new URLSearchParams(ThreeStringProps);
 
  */
 
-
+/*
 var formElement = document.getElementById("modal_ajout");
 var request = new XMLHttpRequest();
 request.open("POST", "http://localhost:5678/api/works");
@@ -421,7 +449,7 @@ request.open("POST", "http://localhost:5678/api/works");
 
 request.send(new FormData(formElement));
 
-
+*/
 
  //recupere les inputs
  /*
@@ -445,8 +473,8 @@ request.send(new FormData(formElement));
    .then((data) => {
      console.log(data);
    })
-*/
-})    
+
+})    */
  
       
       
