@@ -82,14 +82,14 @@ fetch("http://localhost:5678/api/works")
 
   .catch((err) => console.log(err));
 
-//entre a la page model
+/////entre a la page model
 if (localStorage.getItem("token")) {
   //replacer le login par logout
   document.getElementById("login").innerText = "logout";
   //remove btn tout
   document.getElementById("btn").remove(btn_tous);
 
-  //creé div de lodification
+  /////creé div de lodification
 
   document.getElementById("modifer").style.backgroundColor = "black";
 
@@ -97,6 +97,7 @@ if (localStorage.getItem("token")) {
   const edition = document.createElement("p");
   edition.type = "button";
 
+   //////la fonction de modifier/////
   const modification = `
 <div>
 <i class="fa-regular fa-pen-to-square"></i>
@@ -104,7 +105,7 @@ if (localStorage.getItem("token")) {
   edition.insertAdjacentHTML("afterbegin", modification);
   edition.className = "edition";
   edition.onclick = function () {
-    //la fonction de modifier
+   
 
     const modifier = `
 <div id= "modifier">
@@ -127,11 +128,7 @@ if (localStorage.getItem("token")) {
       .getElementById("introduction_photo")
       .insertAdjacentHTML("beforeend", modifier);
 
-    /*
-  document.querySelector("modifier").replaceWith("modifier");
-document.getElementById("modifier").replaceWith("modifier");
-document.getElementById("modifier").replaceWith("modifier");
-*/
+
 
     ///afficher le photos
     function photos(works) {
@@ -174,7 +171,10 @@ document.getElementById("modifier").replaceWith("modifier");
       .catch((err) => console.log(err));
 
     let page = null;
-    /////ouvre modal////
+
+
+
+    ///////////////////////ouvre modal////////////////////
     function ouvre_modal(e) {
      
       e.preventDefault;
@@ -192,10 +192,10 @@ document.getElementById("modifier").replaceWith("modifier");
     document
       .getElementById("modifier_model")
       .addEventListener("click", ouvre_modal);
-    //la fleche de retoure
+    //////la fleche de retoure
     document.getElementById("left").addEventListener("click", ouvre_modal);
 
-    //ouvre modal avec clavier
+    /////ouvre modal avec clavier
     window.addEventListener("keydown", function (e) {
       if (e.key === "Enter") {
         ouvre_modal(e);
@@ -208,7 +208,7 @@ document.getElementById("modifier").replaceWith("modifier");
       e.stopPropagation();
     };
 
-    /////FERMER le modal////
+    ///////////:////FERMER le modal//////////////
     function ferme_modal(e) {
       e.preventDefault;
       const page = document.getElementById("modal");
@@ -223,16 +223,32 @@ document.getElementById("modifier").replaceWith("modifier");
       .getElementById("model_ajoute")
       .addEventListener("click", ferme_modal);
 
-    //
+  
 
-    //ferme modal avec clavier
+    /////////////ferme modal avec clavier
 
     window.addEventListener("keydown", function (e) {
       if (e.key === "Escape" || e.key === "Esc") {
         ferme_modal(e);
       }
     });
+///////desactiver le repetation de modifier ///////////
+    edition.onclick = function () {
+    document
+    .getElementById("portfolio_titre")
+    .removeAttribute("modifier_model");
+  document
+    .getElementById("introduction_article")
+    .removeAttribute("modifier");
+  document
+    .getElementById("introduction_photo")
+    .removeAttribute("modifier");
+    }
+
   };
+
+
+
 
   const edit = document.getElementById("modifer");
   edit.appendChild(edition);
