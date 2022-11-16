@@ -1,5 +1,3 @@
- 
-
 const btn_tous = document.getElementById("btn_tous");
 
 const gallery = document.querySelector(".gallery");
@@ -97,7 +95,7 @@ if (localStorage.getItem("token")) {
   const edition = document.createElement("p");
   edition.type = "button";
 
-   //////la fonction de modifier/////
+  //////la fonction de modifier/////
   const modification = `
 <div>
 <i class="fa-regular fa-pen-to-square"></i>
@@ -105,8 +103,6 @@ if (localStorage.getItem("token")) {
   edition.insertAdjacentHTML("afterbegin", modification);
   edition.className = "edition";
   edition.onclick = function () {
-   
-
     const modifier = `
 <div id= "modifier">
 <i class="fa-regular fa-pen-to-square"></i>
@@ -127,8 +123,6 @@ if (localStorage.getItem("token")) {
     document
       .getElementById("introduction_photo")
       .insertAdjacentHTML("beforeend", modifier);
-
-
 
     ///afficher le photos
     function photos(works) {
@@ -172,11 +166,8 @@ if (localStorage.getItem("token")) {
 
     let page = null;
 
-
-
     ///////////////////////ouvre modal////////////////////
     function ouvre_modal(e) {
-     
       e.preventDefault;
       const target = document.getElementById("modal");
       target.style.display = null;
@@ -223,8 +214,6 @@ if (localStorage.getItem("token")) {
       .getElementById("model_ajoute")
       .addEventListener("click", ferme_modal);
 
-  
-
     /////////////ferme modal avec clavier
 
     window.addEventListener("keydown", function (e) {
@@ -232,28 +221,20 @@ if (localStorage.getItem("token")) {
         ferme_modal(e);
       }
     });
-///////desactiver le repetation de modifier ///////////
+    ///////desactiver le repetation de modifier ///////////
     edition.onclick = function () {
-    document
-    .getElementById("portfolio_titre")
-    .removeAttribute("modifier_model");
-  document
-    .getElementById("introduction_article")
-    .removeAttribute("modifier");
-  document
-    .getElementById("introduction_photo")
-    .removeAttribute("modifier");
-    }
-
+      document
+        .getElementById("portfolio_titre")
+        .removeAttribute("modifier_model");
+      document
+        .getElementById("introduction_article")
+        .removeAttribute("modifier");
+      document.getElementById("introduction_photo").removeAttribute("modifier");
+    };
   };
-
-
-
 
   const edit = document.getElementById("modifer");
   edit.appendChild(edition);
-
-
 
   /*
 /////////////////delet ///////////////////////
@@ -295,17 +276,13 @@ if (localStorage.getItem("token")) {
   
   */
 
-
-
-
   /////ouvre la page ajoute photo///
 
   let model_ajout = null;
   //ouvre modal
   function ouvre_modal_ajoute(e) {
-   
     e.preventDefault;
-     model_page =document.getElementById("modal_ajout");
+    model_page = document.getElementById("modal_ajout");
     model_page.style.display = null;
     model_page.removeAttribute("aria-hidden");
     model_ajout = model_page;
@@ -333,13 +310,12 @@ if (localStorage.getItem("token")) {
     e.stopPropagation();
   };
 
-  
   /////telecharger les photos/////
   function telecharger() {
     const input = document.getElementById("img_input");
-   
+
     var telecharger_image = "";
-   
+
     const reader = new FileReader();
     reader.addEventListener("load", () => {
       telecharger_image = reader.result;
@@ -348,78 +324,70 @@ if (localStorage.getItem("token")) {
 
       photo.style.backgroundImage = `url(${telecharger_image} )`;
       document.getElementById("model_ajout_container").style.display = "none";
-
-
-
     });
     reader.readAsDataURL(this.files[0]);
   }
 
   document.getElementById("img_input").addEventListener("change", telecharger);
 
-document.getElementById('modal_ajout').addEventListener('submit',function(e){
-e.preventDefault();
-
-const image= document.getElementById('img_input').files[0];
-if 
-(image.size< 4 *1048576){
-
-
-let token = (localStorage.getItem("token"));
-console.log( `Bearer  ${token}`)
-const titre=document.getElementById('input_model').value
-const category = document.getElementById('categorie').value;
-let userid= 1
-const formData = new FormData();
-formData.append('image',image);
-formData.append('title',titre);
-formData.append('categoryId',category);
- 
- 
-
-fetch ('http://localhost:5678/api/works',{
- method:"POST",
- headers: {
-  'Content-Type': undefined,
-  // 'Authorization':`Bearer ${token}`,
-
- 'accept': 'application/json',
- //'Content-Type'  :'multipart/form-data ',
-  // 'Content-Type' : 'multipart/form-data',//;boundary=---------------------------6089990234170057781666515331'
-  //'Content-Type': undefined,
-  //'Accept': '*/*',
-  'Authorization': `Bearer  ${token}`
-},
- body:formData,
-
-})
-
-
-
-.then(res=>res.json())
-.then (data => console.log("yeeeeeeeeeeees"+data))
-.catch(err => console.log("nooooooooooooooooo"+err))
-}
-else{
-  console.log("la photo est trop grand ")
   
-}
+  ////Envoi de fichiers via un objet FormData
+  document
+    .getElementById("modal_ajout")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
 
-const input_photo_url = document.getElementById("img_input");
- input_photo_url.value=null;
- 
- const titre_sansvalu=document.getElementById('input_model') ;
- titre_sansvalu.value=null;
- const category_sans_valu = document.getElementById('categorie');
- category_sans_valu.value=null;
-  // suprim les doner quand en ferme
-  document.getElementById("model_ajout_container").style.display = null;
-  document.getElementById("image_telecharger_images").style.display = "none";
+      const image = document.getElementById("img_input").files[0];
+      if (image.size < 4 * 1048576) {
+        let token = localStorage.getItem("token");
+        console.log(`Bearer  ${token}`);
+        const titre = document.getElementById("input_model").value;
+        const category = document.getElementById("categorie").value;
+        let userid = 1;
+        const formData = new FormData();
+        formData.append("image", image);
+        formData.append("title", titre);
+        formData.append("category", category);
 
-})
+        //fetch works
 
-////Envoi de fichiers via un objet FormData
- /*
+        fetch("http://localhost:5678/api/works", {
+          method: "POST",
+          headers: {
+            "Content-Type": undefined,
+            Authorization: `Bearer ${token}`,
+
+            Accept: "application/json",
+            //'Content-Type'  :'multipart/form-data ',
+            // 'Content-Type' : 'multipart/form-data',//;boundary=---------------------------6089990234170057781666515331'
+            //'Content-Type': undefined,
+            // 'Accept': '*/*',
+            //'Authorization': 'Bearer'+ (localStorage.getItem("token"))
+          },
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => console.log("yeeeeeeeeeeees" + data))
+          .catch((err) => console.log("nooooooooooooooooo" + err));
+      } else {
+        console.log("la photo est trop grand ");
+      }
+
+      const input_photo_url = document.getElementById("img_input");
+      input_photo_url.value = null;
+
+      const titre_sansvalu = document.getElementById("input_model");
+      titre_sansvalu.value = null;
+      const category_sans_valu = document.getElementById("categorie");
+      category_sans_valu.value = null;
+      // suprim les doner quand en ferme
+      document.getElementById("model_ajout_container").style.display = null;
+      document.getElementById("image_telecharger_images").style.display =
+        "none";
+    });
+
+
+  /*
   var form = document.forms.namedItem("form_ajout");
   form.addEventListener('submit', function(ev) {
   
@@ -487,7 +455,7 @@ const payload = new URLSearchParams(ThreeStringProps);
 
   console.log(...payload);
 */
- /*
+  /*
   
   fetch("http://localhost:5678/api/works", {
     method: "POST",
@@ -518,7 +486,7 @@ const payload = new URLSearchParams(ThreeStringProps);
 
  */
 
-/*
+  /*
 var formElement = document.getElementById("modal_ajout");
 var request = new XMLHttpRequest();
 request.open("POST", "http://localhost:5678/api/works");
@@ -528,8 +496,8 @@ request.send(new FormData(formElement));
 
 */
 
- //recupere les inputs
- /*
+  //recupere les inputs
+  /*
  const form= document.getElementById("modal_ajout");
  const information = new FormData(form);
  const payload = new URLSearchParams(information);
@@ -552,55 +520,47 @@ request.send(new FormData(formElement));
    })
 
 })    */
- 
-      
-      
- 
 
+  ////FERMER le modal de ajout photo ///
+  function ferme_modal_ajoute(e) {
+    e.preventDefault;
+    const model_ajout = document.getElementById("modal_ajout");
+    model_ajout.style.display = "none";
+    model_ajout.setAttribute("aria-hidden", "true");
+    model_ajout?.removeEventListener("click", ferme_modal_ajoute);
 
-////FERMER le modal de ajout photo ///
-function ferme_modal_ajoute(e) {
-  e.preventDefault;
-  const model_ajout = document.getElementById("modal_ajout");
-  model_ajout.style.display = "none";
-  model_ajout.setAttribute("aria-hidden", "true");
-  model_ajout?.removeEventListener("click", ferme_modal_ajoute);
+    // suprim les doner quand en ferme
+    document.getElementById("model_ajout_container").style.display = null;
+    document.getElementById("image_telecharger_images").style.display = "none";
+    //suprime les doner de titre
 
-  // suprim les doner quand en ferme
-  document.getElementById("model_ajout_container").style.display = null;
-  document.getElementById("image_telecharger_images").style.display = "none";
-//suprime les doner de titre 
+    const input_titre_ajout = document.getElementById("input_model");
+    input_titre_ajout.value = null;
 
-const input_titre_ajout = document.getElementById("input_model") ;
-input_titre_ajout.value= null;
-   
-//suprime le url des photos
-const input_photo_url = document.getElementById("img_input");
-input_photo_url.value= null;
+    //suprime le url des photos
+    const input_photo_url = document.getElementById("img_input");
+    input_photo_url.value = null;
 
-  //suprime les donner de categore
-const category = document.getElementById("categorie");
-category.value  = category.value[0];
-  
+    //suprime les donner de categore
+    const category = document.getElementById("categorie");
+    category.value = category.value[0];
 
-
-//suprimer msg err
-document.getElementById("msg_err").innerHTML="";
-}
-document
-  .getElementById("model_fermer_ajouter")
-  .addEventListener("click", ferme_modal_ajoute);
-//la fleche de retoure
-document.getElementById("left").addEventListener("click", ferme_modal_ajoute);
-
-//ferme modal avec clavier
-
-window.addEventListener("keydown", function (e) {
-  if (e.key === "Escape" || e.key === "Esc") {
-    ferme_modal_ajoute(e);
+    //suprimer msg err
+    document.getElementById("msg_err").innerHTML = "";
   }
-});
+  document
+    .getElementById("model_fermer_ajouter")
+    .addEventListener("click", ferme_modal_ajoute);
+  //la fleche de retoure
+  document.getElementById("left").addEventListener("click", ferme_modal_ajoute);
 
+  //ferme modal avec clavier
+
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" || e.key === "Esc") {
+      ferme_modal_ajoute(e);
+    }
+  });
 
   ///////////////publier les changements
   const changment = document.createElement("button");
