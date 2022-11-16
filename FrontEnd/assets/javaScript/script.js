@@ -362,31 +362,33 @@ e.preventDefault();
 
 const image= document.getElementById('img_input').files[0];
 if 
-(document.getElementById('img_input').files[0].size< 4 *1048576){
+(image.size< 4 *1048576){
 
 
 let token = (localStorage.getItem("token"));
-console.log(token)
+console.log( `Bearer  ${token}`)
 const titre=document.getElementById('input_model').value
 const category = document.getElementById('categorie').value;
-
+let userid= 1
 const formData = new FormData();
-formData.append('image',image)
-formData.append('title',titre)
+formData.append('image',image);
+formData.append('title',titre);
 formData.append('categoryId',category);
-
+ 
  
 
 fetch ('http://localhost:5678/api/works',{
  method:"POST",
  headers: {
-  
-   'Authorization':`Bearer ${token}`,
+  'Content-Type': undefined,
+  // 'Authorization':`Bearer ${token}`,
 
-'accept': 'application/json',
-   
-   'Content-Type' : 'multipart/form-data;boundary=---------------------------6089990234170057781666515331;application/json'
-  //'Content-Type': 'application/json',
+ 'accept': 'application/json',
+ //'Content-Type'  :'multipart/form-data ',
+  // 'Content-Type' : 'multipart/form-data',//;boundary=---------------------------6089990234170057781666515331'
+  //'Content-Type': undefined,
+  //'Accept': '*/*',
+  'Authorization': `Bearer  ${token}`
 },
  body:formData,
 
@@ -396,7 +398,7 @@ fetch ('http://localhost:5678/api/works',{
 
 .then(res=>res.json())
 .then (data => console.log("yeeeeeeeeeeees"+data))
-.catch(err => console.log("nooooooooooooooooo"))
+.catch(err => console.log("nooooooooooooooooo"+err))
 }
 else{
   console.log("la photo est trop grand ")

@@ -15,7 +15,11 @@ form.addEventListener("submit", function (e) {
 
   fetch("http://localhost:5678/api/users/login", {
     method: "POST",
-
+    headers: {
+    'accept': 'application/json',
+    
+   },
+   
     body: payload,
    
   })
