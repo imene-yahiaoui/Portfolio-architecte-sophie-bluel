@@ -1,3 +1,5 @@
+ 
+
 const btn_tous = document.getElementById("btn_tous");
 
 const gallery = document.querySelector(".gallery");
@@ -80,14 +82,14 @@ fetch("http://localhost:5678/api/works")
 
   .catch((err) => console.log(err));
 
-//entre a la page model
+/////entre a la page model
 if (localStorage.getItem("token")) {
   //replacer le login par logout
   document.getElementById("login").innerText = "logout";
   //remove btn tout
   document.getElementById("btn").remove(btn_tous);
 
-  //creé div de lodification
+  /////creé div de lodification
 
   document.getElementById("modifer").style.backgroundColor = "black";
 
@@ -95,6 +97,7 @@ if (localStorage.getItem("token")) {
   const edition = document.createElement("p");
   edition.type = "button";
 
+   //////la fonction de modifier/////
   const modification = `
 <div>
 <i class="fa-regular fa-pen-to-square"></i>
@@ -102,7 +105,7 @@ if (localStorage.getItem("token")) {
   edition.insertAdjacentHTML("afterbegin", modification);
   edition.className = "edition";
   edition.onclick = function () {
-    //la fonction de modifier
+   
 
     const modifier = `
 <div id= "modifier">
@@ -125,11 +128,7 @@ if (localStorage.getItem("token")) {
       .getElementById("introduction_photo")
       .insertAdjacentHTML("beforeend", modifier);
 
-    /*
-  document.querySelector("modifier").replaceWith("modifier");
-document.getElementById("modifier").replaceWith("modifier");
-document.getElementById("modifier").replaceWith("modifier");
-*/
+
 
     ///afficher le photos
     function photos(works) {
@@ -172,9 +171,12 @@ document.getElementById("modifier").replaceWith("modifier");
       .catch((err) => console.log(err));
 
     let page = null;
-    /////ouvre modal////
+
+
+
+    ///////////////////////ouvre modal////////////////////
     function ouvre_modal(e) {
-      console.log("ca marche ca ");
+     
       e.preventDefault;
       const target = document.getElementById("modal");
       target.style.display = null;
@@ -190,10 +192,10 @@ document.getElementById("modifier").replaceWith("modifier");
     document
       .getElementById("modifier_model")
       .addEventListener("click", ouvre_modal);
-    //la fleche de retoure
+    //////la fleche de retoure
     document.getElementById("left").addEventListener("click", ouvre_modal);
 
-    //ouvre modal avec clavier
+    /////ouvre modal avec clavier
     window.addEventListener("keydown", function (e) {
       if (e.key === "Enter") {
         ouvre_modal(e);
@@ -206,7 +208,7 @@ document.getElementById("modifier").replaceWith("modifier");
       e.stopPropagation();
     };
 
-    /////FERMER le modal////
+    ///////////:////FERMER le modal//////////////
     function ferme_modal(e) {
       e.preventDefault;
       const page = document.getElementById("modal");
@@ -221,16 +223,32 @@ document.getElementById("modifier").replaceWith("modifier");
       .getElementById("model_ajoute")
       .addEventListener("click", ferme_modal);
 
-    //
+  
 
-    //ferme modal avec clavier
+    /////////////ferme modal avec clavier
 
     window.addEventListener("keydown", function (e) {
       if (e.key === "Escape" || e.key === "Esc") {
         ferme_modal(e);
       }
     });
+///////desactiver le repetation de modifier ///////////
+    edition.onclick = function () {
+    document
+    .getElementById("portfolio_titre")
+    .removeAttribute("modifier_model");
+  document
+    .getElementById("introduction_article")
+    .removeAttribute("modifier");
+  document
+    .getElementById("introduction_photo")
+    .removeAttribute("modifier");
+    }
+
   };
+
+
+
 
   const edit = document.getElementById("modifer");
   edit.appendChild(edition);
@@ -285,9 +303,9 @@ document.getElementById("modifier").replaceWith("modifier");
   let model_ajout = null;
   //ouvre modal
   function ouvre_modal_ajoute(e) {
-    console.log("ca marche ouvre_modal_ajoute ");
+   
     e.preventDefault;
-    const model_page = document.getElementById("modal_ajout");
+     model_page =document.getElementById("modal_ajout");
     model_page.style.display = null;
     model_page.removeAttribute("aria-hidden");
     model_ajout = model_page;
@@ -321,7 +339,7 @@ document.getElementById("modifier").replaceWith("modifier");
     const input = document.getElementById("img_input");
    
     var telecharger_image = "";
-    console.log(input.value);
+   
     const reader = new FileReader();
     reader.addEventListener("load", () => {
       telecharger_image = reader.result;
@@ -339,21 +357,80 @@ document.getElementById("modifier").replaceWith("modifier");
 
   document.getElementById("img_input").addEventListener("change", telecharger);
 
+document.getElementById('modal_ajout').addEventListener('submit',function(e){
+e.preventDefault();
+
+const image= document.getElementById('img_input').files[0];
+if 
+(image.size< 4 *1048576){
 
 
+let token = (localStorage.getItem("token"));
+console.log( `Bearer  ${token}`)
+const titre=document.getElementById('input_model').value
+const category = document.getElementById('categorie').value;
+let userid= 1
+const formData = new FormData();
+formData.append('image',image);
+formData.append('title',titre);
+formData.append('categoryId',category);
+ 
+ 
+
+fetch ('http://localhost:5678/api/works',{
+ method:"POST",
+ headers: {
+  'Content-Type': undefined,
+  // 'Authorization':`Bearer ${token}`,
+
+ 'accept': 'application/json',
+ //'Content-Type'  :'multipart/form-data ',
+  // 'Content-Type' : 'multipart/form-data',//;boundary=---------------------------6089990234170057781666515331'
+  //'Content-Type': undefined,
+  //'Accept': '*/*',
+  'Authorization': `Bearer  ${token}`
+},
+ body:formData,
+
+})
+
+
+
+.then(res=>res.json())
+.then (data => console.log("yeeeeeeeeeeees"+data))
+.catch(err => console.log("nooooooooooooooooo"+err))
+}
+else{
+  console.log("la photo est trop grand ")
+  
+}
+
+const input_photo_url = document.getElementById("img_input");
+ input_photo_url.value=null;
+ 
+ const titre_sansvalu=document.getElementById('input_model') ;
+ titre_sansvalu.value=null;
+ const category_sans_valu = document.getElementById('categorie');
+ category_sans_valu.value=null;
+  // suprim les doner quand en ferme
+  document.getElementById("model_ajout_container").style.display = null;
+  document.getElementById("image_telecharger_images").style.display = "none";
+
+})
 
 ////Envoi de fichiers via un objet FormData
-  
+ /*
   var form = document.forms.namedItem("form_ajout");
   form.addEventListener('submit', function(ev) {
   
   
         oData = new FormData(form);
-  
+
    
   
     var oReq = new XMLHttpRequest();
     oReq.open("POST", "http://localhost:5678/api/works", true);
+ 
     oReq.onload = function(oEvent) {
       if (oReq.status == 200) {
         console.log("envoier")
@@ -493,7 +570,7 @@ function ferme_modal_ajoute(e) {
   document.getElementById("model_ajout_container").style.display = null;
   document.getElementById("image_telecharger_images").style.display = "none";
 //suprime les doner de titre 
-let vide= ""
+
 const input_titre_ajout = document.getElementById("input_model") ;
 input_titre_ajout.value= null;
    
