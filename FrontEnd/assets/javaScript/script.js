@@ -87,7 +87,7 @@ if (localStorage.getItem("token")) {
   //remove btn tout
   document.getElementById("btn").remove(btn_tous);
 
-  /////creé div de lodification
+  /////creé div de modification
 
   document.getElementById("modifer").style.backgroundColor = "black";
 
@@ -129,10 +129,10 @@ if (localStorage.getItem("token")) {
       const photo_modal = `
           <figure >
           
-          <div class="photo_model_efface">
+          <div id="repertoire_modal" class="photo_model_efface">
           <img src="${works?.imageUrl} "crossOrigin="anonymous">
          
-          <i id="corbielle" class="fa-regular fa-trash-can"></i>
+          <i id ="${works.id}" class="fa-regular fa-trash-can "></i>
        
           </div>
           
@@ -143,7 +143,15 @@ if (localStorage.getItem("token")) {
       document
         .getElementById("model_gallery")
         .insertAdjacentHTML("beforeend", photo_modal);
-    }
+
+       
+
+      }
+
+
+
+    
+      let token = localStorage.getItem("token");
     fetch("http://localhost:5678/api/works")
       .then((res) => {
         console.log(res);
@@ -157,13 +165,53 @@ if (localStorage.getItem("token")) {
               }
             }
 
+         
+            
             affiche_model();
+           
+            for ( let counter = 1; counter <= data.length; counter++) { 
+            function delet (){
+              data[counter].id
+
+              console.log(`${data[counter]?.id}`)
+
+              fetch('http://localhost:5678/api/works/' + data[counter].id, {
+                method: 'DELETE',
+                headers: {
+                    
+                  'Authorization': `Bearer ${token}`,
+          
+                },
+                
+              })
+              .then((data) => alert("Le projet est suprimer 1"))
+              .then(res => res.json())
+              
+              .catch((err) => console.log(err));
+
+
+
+             }
+              
+                 
+             document.getElementById(`${data[counter]?.id}`).addEventListener("click", delet)
+            
+            }
+         
+           
+
+           
+        
+
           });
         }
+   
       })
 
       .catch((err) => console.log(err));
+    
 
+ 
     let page = null;
 
     ///////////////////////ouvre modal////////////////////
@@ -178,6 +226,11 @@ if (localStorage.getItem("token")) {
         .querySelector(".js_modal_stop")
         .addEventListener("click", stopPropagation);
       //le modal ferme quand on click d'hors
+
+
+
+
+
     }
 
     document
@@ -193,7 +246,7 @@ if (localStorage.getItem("token")) {
       }
     });
 
-    //pour stoper fermer le model quand en click dessu
+    //pour stop  la fermeteur le model quand en click dessu
 
     const stopPropagation = function (e) {
       e.stopPropagation();
@@ -236,45 +289,9 @@ if (localStorage.getItem("token")) {
   const edit = document.getElementById("modifer");
   edit.appendChild(edition);
 
-  /*
-/////////////////delet ///////////////////////
- 
-  fetch("http://localhost:5678/api/works")
-    .then((res) => {
-      console.log(res);
-      if (res.ok) {
-        res.json().then((info) => {
-          console.log(info[3].id);
-          const id = 0
-  for(i=0 ;i<= info.length ; i++){
-    console.log(info[1].id)}
-   
-  console.log(info[2].id);
-  const m= document.getElementById('corbielle')
-  m.onclick= function () {
-    const les_photo= document.getElementById("model_gallery")
-    console.log(les_photo.length)
-   
-  }
-  /*
-    fetch('http://localhost:5678/api/works/' + id, {
-      method: 'DELETE',
-      headers: { 
-        'Authorization': 'Bearer token',
-            }
-    })
-    .then(res => res.text()) // or res.json()
-    .then(res => console.log(res))
-  
-        })
-   } })
-  
- 
-  
-  document.getElementById('corbielle')?.addEventListener('click', Delet);
    
   
-  */
+  
 
   /////ouvre la page ajoute photo///
 
@@ -330,49 +347,91 @@ if (localStorage.getItem("token")) {
 
   document.getElementById("img_input").addEventListener("change", telecharger);
 
-  
+ 
   ////Envoi de fichiers via un objet FormData
   document
     .getElementById("modal_ajout")
     .addEventListener("submit", function (e) {
       e.preventDefault();
 
+
+     const photo= document.getElementById("img_input");
+     const category = document.getElementById("categorie");
+     const title = document.getElementById("input_model")
+       
+
+
+// un msf err si le formulair pas repmlis 
+      if (photo.value === null || photo.value === ""||  category.value === null || title.value === null||title.value === "" || category.value === "" ){
+        document.getElementById("msg_err").innerHTML="il faut remplire le formulair "
+         
+      }
+      else{
+        document.getElementById("msg_err").innerHTML=""
+      
+     
+        
+    
+     
+      fetch("http://localhost:5678/api/categories")
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          res.json().then((categorydata) => {
+           
+for(let i = 0 ;i<= categorydata.length-1 ; i++){
+if
+ (category.value === categorydata[i].name){
+  categorydata[i].name = categorydata[i].id
+         console.log(categorydata[i].id);
+         console.log(category.value)
+
+
+
       const image = document.getElementById("img_input").files[0];
-      if (image.size < 4 * 1048576) {
+      
         let token = localStorage.getItem("token");
         console.log(`Bearer  ${token}`);
         const titre = document.getElementById("input_model").value;
-        const category = document.getElementById("categorie").value;
-        let userid = 1;
+      
+//le size de la photo
+        if (image.size < 4 * 1048576) { 
         const formData = new FormData();
-        formData.append("image", image);
-        formData.append("title", titre);
-        formData.append("category", category);
+        formData.append("image",image);
+        formData.append("title",titre);
+        formData.append("category",categorydata[i].id);
+      
+         
 
         //fetch works
 
-        fetch("http://localhost:5678/api/works", {
+        fetch('http://localhost:5678/api/works', {
           method: "POST",
           headers: {
-            "Content-Type": undefined,
-            Authorization: `Bearer ${token}`,
-
-            Accept: "application/json",
-            //'Content-Type'  :'multipart/form-data ',
-            // 'Content-Type' : 'multipart/form-data',//;boundary=---------------------------6089990234170057781666515331'
-            //'Content-Type': undefined,
-            // 'Accept': '*/*',
-            //'Authorization': 'Bearer'+ (localStorage.getItem("token"))
+          
+            'Authorization': `Bearer ${token}`,
+  
           },
-          body: formData,
+          body:formData,
         })
-          .then((res) => res.json())
-          .then((data) => console.log("yeeeeeeeeeeees" + data))
-          .catch((err) => console.log("nooooooooooooooooo" + err));
-      } else {
-        console.log("la photo est trop grand ");
-      }
+        .then((res) => {
+          console.log(res);
+          if (res.ok) {
+            res.json().then((data) => {
+              console.log(data);
 
+            })}})
+        .then((res) => res.json())
+          
+          .then((data) => console.log("le projet est ajouter"))
+          .catch((err) => console.log("nooooooooooooooooo" + err));
+          
+          } else {
+            console.log("la photo est trop grand ");
+          }
+
+      
+ 
       const input_photo_url = document.getElementById("img_input");
       input_photo_url.value = null;
 
@@ -384,142 +443,20 @@ if (localStorage.getItem("token")) {
       document.getElementById("model_ajout_container").style.display = null;
       document.getElementById("image_telecharger_images").style.display =
         "none";
-    });
-
-
-  /*
-  var form = document.forms.namedItem("form_ajout");
-  form.addEventListener('submit', function(ev) {
-  
-  
-        oData = new FormData(form);
-
-   
-  
-    var oReq = new XMLHttpRequest();
-    oReq.open("POST", "http://localhost:5678/api/works", true);
- 
-    oReq.onload = function(oEvent) {
-      if (oReq.status == 200) {
-        console.log("envoier")
-         } else {
-          console.log("pas envoier"+ oReq.status) 
       }
-    };
-  
-    oReq.send(oData);
-    ev.preventDefault();
-  }, false);
-
-
-
-  /*
-
- ///////////////////////////////ajouter///////////////////////
- const form_ajout = document.getElementById("modal_ajout");
- 
- form_ajout.addEventListener("submit", function (e) {
-  e.preventDefault();
- 
-//recuper les donner de titre
-  const input_titre_ajout = document.getElementById("input_model").value
-  console.log(input_titre_ajout)
-//recuper les donner de categore
-let category_Id= 0
-const category = document.getElementById("categorie").value
-
-
-//recuper le url des photos
-const input_photo_url = document.getElementById("img_input").value
-console.log(`"laphoto"${input_photo_url}`)
-
-//categoryid 
-
-
- //////////msg errer formulair ajout photo/////////
-  
-if (input_photo_url === ''|| input_photo_url === null || category === ''|| category === null || input_titre_ajout === ''|| input_titre_ajout === null ){
-  document.getElementById("msg_err").innerHTML="il faut remplire le formulair "
    
-}
-else{
-  document.getElementById("msg_err").innerHTML=""
-}
-
-
-const tokens = ' Bearer localStorage.getItem("token") '
- /*
-//const information = new FormData(form_ajout);
-const ThreeStringProps = {imageUrl: input_photo_url, title: input_titre_ajout, categoryId: category}
-const payload = new URLSearchParams(ThreeStringProps);
-
-  console.log(...payload);
-*/
-  /*
-  
-  fetch("http://localhost:5678/api/works", {
-    method: "POST",
-    headers: {
-      'accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization':  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2ODQ0NTI5OSwiZXhwIjoxNjY4NTMxNjk5fQ.tEz9t6y7qcAMRPWORanagg-jkUKCIByVp1y8HF_fguc'
-    },
-    body: JSON.stringify({
-     "image": '@479176441_wide.jpg',
-     "title": input_titre_ajout,
-     "categoryId": category,
+      }
+   
+      })}})
     }
-    ),
-         
-  })
-  .then (res=> {
-    if (res.ok){console.log("post request bien envoyer")}
-    else {console.log ("PAS GRAVE ESSAYE ENCORE ")}
-    return res
-
-  })
-   
-    .then(res => res.json())
-    .then((data) => console.log(data));
-    console.log(localStorage.getItem("token"))
-   
-
- */
-
-  /*
-var formElement = document.getElementById("modal_ajout");
-var request = new XMLHttpRequest();
-request.open("POST", "http://localhost:5678/api/works");
+    });
+ 
 
 
-request.send(new FormData(formElement));
-
-*/
-
-  //recupere les inputs
-  /*
- const form= document.getElementById("modal_ajout");
- const information = new FormData(form);
- const payload = new URLSearchParams(information);
-
- console.log([...payload]);
-
- fetch("http://localhost:5678/api/works", {
-   method: "POST",
-   headers: {
-    'accept': 'application/json',
-    'Content-Type': 'application/json',
-    'Authorization':  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2ODQ0NTI5OSwiZXhwIjoxNjY4NTMxNjk5fQ.tEz9t6y7qcAMRPWORanagg-jkUKCIByVp1y8HF_fguc'
-  },
-  body: JSON.stringify({payload}),
   
- })
-   .then((res) => res.json())
-   .then((data) => {
-     console.log(data);
-   })
 
-})    */
+
+ 
 
   ////FERMER le modal de ajout photo ///
   function ferme_modal_ajoute(e) {
