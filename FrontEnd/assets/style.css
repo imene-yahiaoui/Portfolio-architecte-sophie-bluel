@@ -619,6 +619,7 @@ log in
   background: #cbd6dc;
   border-radius: 50px;
   height: 52px;
+  cursor: pointer;
 }
 #model_gallery_ajout {
   display: flex;

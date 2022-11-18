@@ -297,14 +297,16 @@ if (localStorage.getItem("token")) {
                         if (res.ok) {
                           res.json().then((data) => {
                             console.log(data);
-
-                            alert(`le projet ${data.title} est ajouter`);
+                          //  alert(`le projet ${data.title} est ajouter`);
+                            
                           });
                         }
                       })
+                      .then(alert(`le projet ${data.title} est ajouter`))
                       .then((res) => res.json())
-
+                    // 
                       .catch((err) => console.log("il ya un problem" + err));
+                      alert(`le projet ${data.title} est ajouter`)
                   } else {
                     console.log("la photo est trop grand ");
                   }
