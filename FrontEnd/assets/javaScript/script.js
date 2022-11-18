@@ -144,10 +144,7 @@ if (localStorage.getItem("token")) {
         .getElementById("model_gallery")
         .insertAdjacentHTML("beforeend", photo_modal);
 
-        photo_modal.onclick = function () {
-          console.log("tu appius sur la  ")
-
-        }
+       
 
       }
 
@@ -168,88 +165,53 @@ if (localStorage.getItem("token")) {
               }
             }
 
-            affiche_model();
-            //delet
-   
-             function delet( ){ 
-                 
- 
-              console.log("tu appius sur la corbielle ")
-
-            }
          
-  
-         //   document.getElementById('id').addEventListener('click',delet)
+            
+            affiche_model();
+           
+            for ( let counter = 1; counter <= data.length; counter++) { 
+            function delet (){
+              data[counter].id
 
-/*
- const url_img = document.getElementById('repertoire_modal').setAttribute('img')
- url_img.value= data[counter].imageUrl
- console.log(url_img.value)
+              console.log(`${data[counter]?.id}`)
 
-
- 
-              id=0
-              id= data[counter].id
-              fetch('http://localhost:5678/api/works/' + id, {
+              fetch('http://localhost:5678/api/works/' + data[counter].id, {
                 method: 'DELETE',
                 headers: {
                     
                   'Authorization': `Bearer ${token}`,
           
                 },
+                
               })
-              .then(res => res.json()) // or res.json()
-              .then(res => console.log("bien suprimer"))
-
-*/
-
-
+              .then((data) => alert("Le projet est suprimer 1"))
+              .then(res => res.json())
+              
+              .catch((err) => console.log(err));
 
 
+
+             }
+              
+                 
+             document.getElementById(`${data[counter]?.id}`).addEventListener("click", delet)
+            
+            }
+         
+           
 
            
         
 
           });
         }
+   
       })
 
       .catch((err) => console.log(err));
+    
 
  
-
-
-/*
-      function Delet( ) {
-  
- 
-        let token = localStorage.getItem("token");
-      
-          fetch('http://localhost:5678/api/works/' + id, {
-            method: 'DELETE',
-            headers: {
-                
-              'Authorization': `Bearer ${token}`,
-      
-            },
-          })
-          .then(res => res.json()) // or res.json()
-          .then(res => console.log("bien suprimer"))
-        
-        }
-        
-        document.getElementById('corbielle')?.addEventListener('click', Delet);
-
-
-
-*/
-
-
-
-
-
-
-
     let page = null;
 
     ///////////////////////ouvre modal////////////////////
@@ -327,9 +289,6 @@ if (localStorage.getItem("token")) {
   const edit = document.getElementById("modifer");
   edit.appendChild(edition);
 
-
-/////////////////delet ///////////////////////
- 
    
   
   
@@ -464,7 +423,7 @@ if
             })}})
         .then((res) => res.json())
           
-          .then((data) => console.log("yeeeeeeeeeeees" + data))
+          .then((data) => console.log("le projet est ajouter"))
           .catch((err) => console.log("nooooooooooooooooo" + err));
           
           } else {
