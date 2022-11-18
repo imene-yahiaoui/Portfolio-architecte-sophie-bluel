@@ -236,7 +236,7 @@ if (localStorage.getItem("token")) {
 
   document.getElementById("img_input").addEventListener("change", telecharger);
 
-  ////Envoi de fichiers via un objet FormData
+  ////Envoi de fichiers a API
   document
     .getElementById("modal_ajout")
     .addEventListener("submit", function (e) {
@@ -314,8 +314,8 @@ if (localStorage.getItem("token")) {
                   const input_photo_url = document.getElementById("img_input");
                   input_photo_url.value = null;
 
-                  const titre_sansvalu = document.getElementById("input_model");
-                  titre_sansvalu.value = null;
+                  const titre_sansvalue = document.getElementById("input_model");
+                  titre_sansvalue.value = null;
                   const category_sans_valu =
                     document.getElementById("categorie");
                   category_sans_valu.value = null;
@@ -356,7 +356,7 @@ if (localStorage.getItem("token")) {
 
     //suprime les donner de categore
     const category = document.getElementById("categorie");
-    category.value = category.value[0];
+    category.value = null;
 
     //suprimer msg err
     document.getElementById("msg_err").innerHTML = "";
