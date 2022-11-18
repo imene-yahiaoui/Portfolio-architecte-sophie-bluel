@@ -16,12 +16,10 @@ form.addEventListener("submit", function (e) {
   fetch("http://localhost:5678/api/users/login", {
     method: "POST",
     headers: {
-    'accept': 'application/json',
-    
-   },
-   
+      accept: "application/json",
+    },
+
     body: payload,
-   
   })
     .then((res) => res.json())
     .then((data) => {
@@ -37,14 +35,10 @@ form.addEventListener("submit", function (e) {
       //affiche error
       else {
         error.innerText = " Erreur dans l’identifiant ou le mot de passe";
-        document.getElementById("email").value=null
-        document.getElementById("password").value=null
-        
+        document.getElementById("email").value = null;
+        document.getElementById("password").value = null;
       }
     })
 
     .catch((err) => console.log(err));
 });
-
-
-
