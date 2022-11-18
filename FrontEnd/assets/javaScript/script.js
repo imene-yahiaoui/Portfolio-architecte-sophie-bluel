@@ -129,10 +129,10 @@ if (localStorage.getItem("token")) {
       const photo_modal = `
           <figure >
           
-          <div class="photo_model_efface">
+          <div id="repertoire_modal" class="photo_model_efface">
           <img src="${works?.imageUrl} "crossOrigin="anonymous">
          
-          <i id="corbielle" class="fa-regular fa-trash-can"></i>
+          <i id ="${works.id}" class="fa-regular fa-trash-can "></i>
        
           </div>
           
@@ -143,7 +143,18 @@ if (localStorage.getItem("token")) {
       document
         .getElementById("model_gallery")
         .insertAdjacentHTML("beforeend", photo_modal);
+
+        photo_modal.onclick = function () {
+          console.log("tu appius sur la  ")
+
+        }
+
       }
+
+
+
+    
+      let token = localStorage.getItem("token");
     fetch("http://localhost:5678/api/works")
       .then((res) => {
         console.log(res);
@@ -158,11 +169,84 @@ if (localStorage.getItem("token")) {
             }
 
             affiche_model();
+            //delet
+   
+             function delet( ){ 
+                 
+ 
+              console.log("tu appius sur la corbielle ")
+
+            }
+         
+  
+         //   document.getElementById('id').addEventListener('click',delet)
+
+/*
+ const url_img = document.getElementById('repertoire_modal').setAttribute('img')
+ url_img.value= data[counter].imageUrl
+ console.log(url_img.value)
+
+
+ 
+              id=0
+              id= data[counter].id
+              fetch('http://localhost:5678/api/works/' + id, {
+                method: 'DELETE',
+                headers: {
+                    
+                  'Authorization': `Bearer ${token}`,
+          
+                },
+              })
+              .then(res => res.json()) // or res.json()
+              .then(res => console.log("bien suprimer"))
+
+*/
+
+
+
+
+
+           
+        
+
           });
         }
       })
 
       .catch((err) => console.log(err));
+
+ 
+
+
+/*
+      function Delet( ) {
+  
+ 
+        let token = localStorage.getItem("token");
+      
+          fetch('http://localhost:5678/api/works/' + id, {
+            method: 'DELETE',
+            headers: {
+                
+              'Authorization': `Bearer ${token}`,
+      
+            },
+          })
+          .then(res => res.json()) // or res.json()
+          .then(res => console.log("bien suprimer"))
+        
+        }
+        
+        document.getElementById('corbielle')?.addEventListener('click', Delet);
+
+
+
+*/
+
+
+
+
 
 
 
@@ -245,44 +329,7 @@ if (localStorage.getItem("token")) {
 
 
 /////////////////delet ///////////////////////
- function Delet( ) {
-  
  
-  fetch("http://localhost:5678/api/works")
-    .then((res) => {
-      console.log(res);
-      if (res.ok) {
-        res.json().then((info) => {
-          console.log(info[3].id);
-          const id = 0
-  for(i=0 ;i<= info.length -1; i++){
-    console.log(info[1].id)}
-   
-  console.log(info[2].id);
-  const m= document.getElementById('corbielle')
-  m.onclick= function () {
-    const les_photo= document.getElementById("model_gallery")
-    console.log(les_photo.length)
-   
-  }
-  let token = localStorage.getItem("token");
-
-    fetch('http://localhost:5678/api/works/' + id, {
-      method: 'DELETE',
-      headers: {
-          
-        'Authorization': `Bearer ${token}`,
-
-      },
-    })
-    .then(res => res.json()) // or res.json()
-    .then(res => console.log("bien suprimer"))
-  
-        })
-   } })
-  }
-  
-  document.getElementById('corbielle')?.addEventListener('click', Delet);
    
   
   
