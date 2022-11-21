@@ -69,7 +69,9 @@
                       .catch((err) => console.log("il ya un problem" + err));
                   
                   } else {
-                    console.log("la photo est trop grand ");
+                    console.log("la taille de la  photo est plus de 4mo ");
+                    document.getElementById("msg_err").innerHTML =
+                    "la taille de la photo est plus de 4mo  ";
                   }
 
                 }
