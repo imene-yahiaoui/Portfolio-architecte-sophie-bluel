@@ -15,7 +15,12 @@
     model_ajout
       .querySelector(".js_modal_stop")
       .addEventListener("click", stopPropagation);
-    //le modal ferme quand on click d'hors
+
+
+      //l'affichage de category null 
+      const category = document.getElementById("categorie");
+      category.value=null
+    //ferme le modal  quand on click d'hors
   }
 
   document

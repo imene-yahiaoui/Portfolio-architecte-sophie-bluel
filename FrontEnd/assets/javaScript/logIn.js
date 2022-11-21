@@ -37,6 +37,17 @@ form.addEventListener("submit", function (e) {
         error.innerText = " Erreur dans l’identifiant ou le mot de passe";
         document.getElementById("email").value = null;
         document.getElementById("password").value = null;
+
+
+        //eface le message 
+  function msgdelet(){
+    
+    error.innerText=""
+  }
+  setTimeout(msgdelet ,50000); 
+ 
+
+
       }
     })
 
