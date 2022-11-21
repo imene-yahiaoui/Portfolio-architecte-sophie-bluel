@@ -50,7 +50,8 @@ document.getElementById("modal_ajout").addEventListener("submit", function (e) {
                     if (res.ok) {
                       res.json().then((data) => {
                         console.log(data);
-                        alert(`le projet ${data.title} été ajouté avec succès`);
+                         alert(`le projet ${data.title} été ajouté avec succès`)
+                                                                
                       });
                     }
                   })
