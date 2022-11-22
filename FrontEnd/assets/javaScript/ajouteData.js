@@ -9,7 +9,7 @@ document.getElementById("modal_ajout").addEventListener("submit", function (e) {
   // un msg err si le formulair pas rempli
   if (photo.value === "" || title.value === "" || category.value === "") {
     document.getElementById("msg_err").innerHTML =
-      "il faut remplire le formulair ";
+      "il faut remplir le formulaire ";
   } else {
     document.getElementById("msg_err").innerHTML = "";
 
@@ -46,22 +46,22 @@ document.getElementById("modal_ajout").addEventListener("submit", function (e) {
                   body: formData,
                 })
                   .then((res) => {
-                    console.log(res);
                     if (res.ok) {
                       res.json().then((data) => {
-                        console.log(data);
-                         alert(`le projet ${data.title} été ajouté avec succès`)
-                                                                
+                                                               
                       });
                     }
                   })
-                  .then((res) => res.json())
+                
 
                   .catch((err) => console.log("il ya un problem" + err));
               } else {
-                console.log("la taille de la  photo est plus de 4mo ");
-                document.getElementById("msg_err").innerHTML =
+                   document.getElementById("msg_err").innerHTML =
                   "la taille de la photo est plus de 4mo  ";
+                  photo.value=null 
+                   // suprim les doner quand en ferme
+    document.getElementById("model_ajout_container").style.display = null;
+    document.getElementById("image_telecharger_images").style.display = "none";
               }
             }
           }
@@ -69,4 +69,7 @@ document.getElementById("modal_ajout").addEventListener("submit", function (e) {
       }
     });
   }
+
+  
+
 });

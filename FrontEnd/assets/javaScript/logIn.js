@@ -11,7 +11,7 @@ form.addEventListener("submit", function (e) {
   const information = new FormData(form);
   const payload = new URLSearchParams(information);
 
-  console.log([...payload]);
+
 
   fetch("http://localhost:5678/api/users/login", {
     method: "POST",

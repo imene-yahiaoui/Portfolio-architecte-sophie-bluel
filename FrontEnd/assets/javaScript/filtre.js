@@ -16,19 +16,19 @@ function info(work) {
 //fetch works
 fetch("http://localhost:5678/api/works")
   .then((res) => {
-    console.log(res);
+  
     if (res.ok) {
       res.json().then((data) => {
-        console.log(data);
+       
         const numSlid = data.length;
 
         //fetch categoris
         fetch("http://localhost:5678/api/categories")
           .then((res) => {
-            console.log(res);
+            
             if (res.ok) {
               res.json().then((category) => {
-                console.log(category);
+              
                 //tout
                 function tout() {
                   document.querySelector(".gallery").innerHTML = "";

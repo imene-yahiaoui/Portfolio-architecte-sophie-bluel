@@ -623,7 +623,7 @@ margin-bottom: 10px;}
   background: #e8f1f7;
   border-radius: 3px;
   align-items: center;
- 
+ row-gap: 9px;
   justify-content: center;
 }
 .ajout {
