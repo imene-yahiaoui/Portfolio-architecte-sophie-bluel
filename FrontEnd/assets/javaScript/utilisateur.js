@@ -49,7 +49,7 @@ if (localStorage.getItem("token")) {
     ///afficher le photos
     function photos(works) {
       const photo_modal = `
-          <figure >
+          <figure id ="${works.id}">
           
           <div id="repertoire_modal" class="photo_model_efface">
           <img src="${works?.imageUrl} "crossOrigin="anonymous">
@@ -73,23 +73,51 @@ if (localStorage.getItem("token")) {
         console.log(res);
         if (res.ok) {
           res.json().then((data) => {
-            console.log(data);
+            console.log("data" ,data);
             function affiche_model() {
-              let counter = 0;
-              for (counter = 0; counter <= data.length - 1; counter++) {
-                photos(data[counter]);
+              let i = 0;
+              for (i = 0; i <= data.length - 1; i++) {
+                photos(data[i]);
               }
             }
 
             affiche_model();
+
+
             ////////////delet//////////////:
             for (let counter = 1; counter <= data.length; counter++) {
               function delet() {
                 data[counter].id;
 
                 console.log(`${data[counter]?.id}`);
+                localStorage.setItem( "id", `${[data[counter].id]}`)
+ 
+ 
+ console.log(data[counter].id )
+ //suprimer les projet 
+ 
+  var element = document.getElementById(data[counter].id);
 
-                fetch("http://localhost:5678/api/works/" + data[counter].id, {
+element.remove();
+  
+var element2 = document.getElementById(`A${data[counter].id}`);
+
+element2.remove();
+ 
+
+ 
+              }
+
+              var id = document.getElementById(`${data[counter]?.id}`);
+              if (id) {
+                id.addEventListener("click", delet);
+              }
+console.log(localStorage.getItem("id"))
+
+
+             function deleteProject(){
+
+               fetch("http://localhost:5678/api/works/" + localStorage.id, {
                   method: "DELETE",
                   headers: {
                     Authorization: `Bearer ${token}`,
@@ -97,12 +125,12 @@ if (localStorage.getItem("token")) {
                 })
                   .then((res) => res.json())
 
-                  .catch((err) => console.log(err));
-              }
+                  .catch((err) => console.log("il ya un problem" + err));
+             }
 
-              var id = document.getElementById(`${data[counter]?.id}`);
-              if (id) {
-                id.addEventListener("click", delet);
+              if (localStorage.getItem("id")) {
+                deleteProject();
+                localStorage.removeItem("id")
               }
             }
           });
@@ -203,7 +231,7 @@ if (localStorage.getItem("token")) {
 
   changment.onclick = function () {
     //la fonction
-    location.href = "/FrontEnd/index.html";
+   // location.href = "/FrontEnd/index.html";
   };
   const changements = document.getElementById("modifer");
   changements.appendChild(changment);

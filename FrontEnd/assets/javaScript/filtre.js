@@ -4,7 +4,7 @@ const gallery = document.querySelector(".gallery");
 
 function info(work) {
   const card = `
-    <figure >
+    <figure id ="A${work?.id}" >
     <img src="${work?.imageUrl} "crossOrigin="anonymous">
       <figcaption>${work?.title}</figcaption>
     </figure>
@@ -19,9 +19,12 @@ fetch("http://localhost:5678/api/works")
   
     if (res.ok) {
       res.json().then((data) => {
+        console.log ("resu",data) 
        
         const numSlid = data.length;
 
+        
+      
         //fetch categoris
         fetch("http://localhost:5678/api/categories")
           .then((res) => {
@@ -37,7 +40,14 @@ fetch("http://localhost:5678/api/works")
                   for (i = 0; i <= numSlid - 1; i++) {
                     info(data[i]);
                   }
-                }
+
+              }
+                
+               
+
+        
+
+
 
                 btn_tous.addEventListener("click", tout);
 
