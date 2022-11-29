@@ -12,7 +12,7 @@ function info(work) {
 
   document.querySelector(".gallery").insertAdjacentHTML("beforeend", card);
 }
-
+      
 //fetch works
 fetch("http://localhost:5678/api/works")
   .then((res) => {
@@ -21,6 +21,67 @@ fetch("http://localhost:5678/api/works")
       res.json().then((data) => {
         console.log ("resu",data) 
        
+    ////////////delet//////////////:
+          
+    let token = localStorage.getItem("token");
+    for (let counter = 1; counter <= data.length; counter++) {
+      function delet() {
+        data[counter].id;
+
+       // console.log(`${data[counter]?.id}`);
+        
+      tableauId.push(data[counter].id)
+      console.log(tableauId)
+      localStorage.setItem( "id", JSON.stringify(tableauId))
+console.log(data[counter].id )
+//suprimer les projet 
+
+var element = document.getElementById(data[counter].id);
+
+element.remove();
+
+var element2 = document.getElementById(`A${data[counter].id}`);
+
+element2.remove();
+
+
+
+      }
+
+      var id = document.getElementById(`${data[counter]?.id}`);
+      if (id) {
+        id.addEventListener("click", delet);
+      }}
+console.log(localStorage.getItem("id"))
+
+
+     function deleteProject(id){
+
+       fetch("http://localhost:5678/api/works/" + id, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+
+          .catch((err) => console.log("il ya un problem" + err));
+     }
+
+      if (localStorage.getItem("id")) {
+        let getId = JSON.parse( localStorage.getItem("id"))
+        for (let id of getId ){
+          deleteProject(id);
+          console.log ( "le ID ",id)
+        }
+       
+        localStorage.removeItem("id")
+      }
+    
+
+
+
+
         const numSlid = data.length;
 
         
@@ -40,6 +101,11 @@ fetch("http://localhost:5678/api/works")
                   for (i = 0; i <= numSlid - 1; i++) {
                     info(data[i]);
                   }
+
+
+                  
+  
+      
 
               }
                 

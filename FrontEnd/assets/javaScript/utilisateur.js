@@ -4,6 +4,9 @@ import * as telechargerphoto from "./telechargerImage.js";
 
 /////entre a la page model
 if (localStorage.getItem("token")) {
+
+let tableauId= []
+
   //replacer le login par logout
   document.getElementById("login").innerText = "logout";
   //remove btn tout
@@ -67,6 +70,10 @@ if (localStorage.getItem("token")) {
         .insertAdjacentHTML("beforeend", photo_modal);
     }
 
+
+
+
+
     let token = localStorage.getItem("token");
     fetch("http://localhost:5678/api/works")
       .then((res) => {
@@ -90,7 +97,7 @@ if (localStorage.getItem("token")) {
                 data[counter].id;
 
                 console.log(`${data[counter]?.id}`);
-                localStorage.setItem( "id", `${[data[counter].id]}`)
+               
  
  
  console.log(data[counter].id )
@@ -104,35 +111,46 @@ var element2 = document.getElementById(`A${data[counter].id}`);
 
 element2.remove();
  
-
- 
+tableauId.push(data[counter].id)
+console.log(tableauId)
+localStorage.setItem( "id", JSON.stringify(tableauId))
+//localStorage.setItem( "id", `${[data[counter].id]}`)
               }
 
               var id = document.getElementById(`${data[counter]?.id}`);
               if (id) {
                 id.addEventListener("click", delet);
               }
-console.log(localStorage.getItem("id"))
+console.log(localStorage.getItem("id"))}
 
+//Essaye
 
-             function deleteProject(){
+//
+function deleteProject(id){
 
-               fetch("http://localhost:5678/api/works/" + localStorage.id, {
-                  method: "DELETE",
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                  },
-                })
-                  .then((res) => res.json())
+  fetch("http://localhost:5678/api/works/" + id, {
+     method: "DELETE",
+     headers: {
+       Authorization: `Bearer ${token}`,
+     },
+   })
+     .then((res) => res.json())
 
-                  .catch((err) => console.log("il ya un problem" + err));
-             }
+     .catch((err) => console.log("il ya un problem" + err));
+}
 
-              if (localStorage.getItem("id")) {
-                deleteProject();
-                localStorage.removeItem("id")
-              }
-            }
+ if (localStorage.getItem("id")) {
+   let getId = JSON.parse( localStorage.getItem("id"))
+   for (let id of getId ){
+     deleteProject(id);
+     console.log ( "le ID ",id)
+    
+    }
+  
+   localStorage.removeItem("id")
+ }
+
+            
           });
         }
       })
@@ -235,4 +253,11 @@ console.log(localStorage.getItem("id"))
   };
   const changements = document.getElementById("modifer");
   changements.appendChild(changment);
+
+
+
+
+
+
+  
 }

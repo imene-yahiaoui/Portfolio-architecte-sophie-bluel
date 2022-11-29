@@ -1,3 +1,5 @@
+
+
 ////Envoi de fichiers a API
 document.getElementById("modal_ajout").addEventListener("submit", function (e) {
   e.preventDefault();
@@ -38,6 +40,7 @@ document.getElementById("modal_ajout").addEventListener("submit", function (e) {
 
                 //fetch works
 
+                 
                 fetch("http://localhost:5678/api/works", {
                   method: "POST",
                   headers: {
@@ -47,15 +50,26 @@ document.getElementById("modal_ajout").addEventListener("submit", function (e) {
                 })
                   .then((res) => {
                     if (res.ok) {
-                      res.json().then((data) => {
-                                                               
-                      });
-                    }
-                  })
-                
+                  //     res.json().then((data) => {
+                  //            console.log(data)                                  
+                  //     });
 
+                  
+                     }
+                   })
+                
+              
                   .catch((err) => console.log("il ya un problem" + err));
-              } else {
+                 
+               
+
+
+
+
+
+              
+
+               } else {
                    document.getElementById("msg_err").innerHTML =
                   "la taille de la photo est plus de 4mo  ";
                   photo.value=null 
@@ -70,6 +84,6 @@ document.getElementById("modal_ajout").addEventListener("submit", function (e) {
     });
   }
 
-  
+ 
 
 });
