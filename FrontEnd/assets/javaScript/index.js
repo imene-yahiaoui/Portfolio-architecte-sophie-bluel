@@ -2,6 +2,31 @@ const btn_tous = document.getElementById("btn_tous");
 const gallery = document.querySelector(".gallery");
 let token = localStorage.getItem("token");
 
+
+ function deleteProject(id) {
+              fetch("http://localhost:5678/api/works/" + id, {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+                .then((res) => res.json())
+
+                .catch((err) => console.log("il ya un problem" + err));
+            }
+
+            if (localStorage.getItem("id")) {
+              let getId = JSON.parse(localStorage.getItem("id"));
+              for (let id of getId) {
+                deleteProject(id);
+                tout();
+                console.log("le ID ", id);
+              }
+
+              localStorage.removeItem("id");
+            }
+
+
 function info(work) {
   const card = `
     <figure id ="A${work?.id}" >
@@ -9,9 +34,7 @@ function info(work) {
       <figcaption>${work?.title}</figcaption>
     </figure>
           `;
-
-  document.querySelector(".gallery").insertAdjacentHTML("beforeend", card);
-}
+  document.querySelector(".gallery").insertAdjacentHTML("beforeend", card);}
 
 function tout (){
    fetch("http://localhost:5678/api/works").then((res) => {
@@ -47,10 +70,10 @@ function suprime(){
 
 function photos(works) {
   const photo_modal = `
-      <figure id ="${works.id}">
+      <figure id ="B${works.id}">
                 <div id="repertoire_modal" class="photo_model_efface">
       <img src="${works?.imageUrl} "crossOrigin="anonymous">
-               <i id ="${works.id}" class="fa-regular fa-trash-can "></i>
+              <i id ="${works.id}" class="fa-regular fa-trash-can "></i>
              </div>
                   <figcaption>éditer</figcaption>
       </figure>
@@ -71,9 +94,9 @@ fetch("http://localhost:5678/api/works").then((res) => {
           }
         })}})}
 
-//fetch works
 
-//fetch works
+
+/////crée des btn  object////
 fetch("http://localhost:5678/api/works").then((res) => {
   if (res.ok) {
     res.json().then((data) => {
@@ -83,10 +106,7 @@ fetch("http://localhost:5678/api/works").then((res) => {
         .then((res) => {
           if (res.ok) {
             res.json().then((category) => {
-                           /////cree des btn  object////
-             
-
-              for (let count = 0; count <= category.length - 1; count++) {
+            for (let count = 0; count <= category.length - 1; count++) {
                 const object = document.createElement("button");
                 object.type = "button";
                 object.innerHTML = category[count].name;
@@ -108,81 +128,20 @@ fetch("http://localhost:5678/api/works").then((res) => {
                   button.appendChild(object);
                 }
               }
-
-              tout();
-
-              //////////delet//////////////:
-                          for (let counter = 1; counter <= data.length; counter++) {
-                            function delet() {
-                              data[counter].id;
-
-                              console.log(`${data[counter]?.id}`);
-
-               console.log(data[counter].id )
-               //suprimer les projet
-
-                var element = document.getElementById(data[counter].id);
-
-              element.remove();
-
-              var element2 = document.getElementById(`A${data[counter].id}`);
-
-              element2.remove();
-
-              tableauId.push(data[counter].id)
-              console.log(tableauId)
-              localStorage.setItem( "id", JSON.stringify(tableauId))
-              //localStorage.setItem( "id", `${[data[counter].id]}`)
-                            }
-
-                            var id = document.getElementById(`${data[counter]?.id}`);
-                            if (id) {
-                              id.addEventListener("click", delet);
-                            }
-              console.log(localStorage.getItem("id"))}
-
-              //Essaye
-
-              //
-              function deleteProject(id){
-
-                fetch("http://localhost:5678/api/works/" + id, {
-                   method: "DELETE",
-                   headers: {
-                     Authorization: `Bearer ${token}`,
-                   },
-                 })
-                   .then((res) => res.json())
-
-                   .catch((err) => console.log("il ya un problem" + err));
-              }
-
-               if (localStorage.getItem("id")) {
-                 let getId = JSON.parse( localStorage.getItem("id"))
-                 for (let id of getId ){
-                   deleteProject(id);
-                   console.log ( "le ID ",id)
-
-                  }
-
-                 localStorage.removeItem("id")
-               }
-            });
-          } else {
-            console.log("Error");
-          }
-        })
-        .catch((e) => console.log(e));
-    });
-  }
-});
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
+              
+  //              
+          });
+        }
+      })
+     
+     // .catch((err) => console.log(err));
+             })}//})})}
+             tout();
+         });
 
 /////entre a la page model
 if (localStorage.getItem("token")) {
   let tableauId = [];
-
   //replacer le login par logout
   document.getElementById("login").innerText = "logout";
   //remove btn tout
@@ -228,64 +187,77 @@ if (localStorage.getItem("token")) {
 
     afficheModel()
 
-      //       ////////////delet//////////////:
-      //       for (let counter = 1; counter <= data.length; counter++) {
-      //         function delet() {
-      //           data[counter].id;
+            ////////////delet//////////////:
 
-      //           console.log(`${data[counter]?.id}`);
-
-      //           console.log(data[counter].id);
-      //           //suprimer les projet
-
-      //           var element = document.getElementById(data[counter].id);
-
-      //           element.remove();
-
-      //           var element2 = document.getElementById(`A${data[counter].id}`);
-
-      //           element2.remove();
-
-      //           tableauId.push(data[counter].id);
-      //           console.log(tableauId);
-      //           localStorage.setItem("id", JSON.stringify(tableauId));
+  
+             function deeeeeeel() {
+               
              
-      //         }
+            fetch("http://localhost:5678/api/works").then((res) => {
+              if (res.ok) {
+                res.json().then((data) => {
 
-      //         var id = document.getElementById(`${data[counter]?.id}`);
-      //         if (id) {
-      //           id.addEventListener("click", delet);
-      //         }
-      //         console.log(localStorage.getItem("id"));
-      //       }
+            for (let counter = 1; counter <= data.length; counter++) {
+  function delet() {
+                data[counter].id;
 
-      //       function deleteProject(id) {
-      //         fetch("http://localhost:5678/api/works/" + id, {
-      //           method: "DELETE",
-      //           headers: {
-      //             Authorization: `Bearer ${token}`,
-      //           },
-      //         })
-      //           .then((res) => res.json())
+                console.log(`${data[counter]?.id}`);
 
-      //           .catch((err) => console.log("il ya un problem" + err));
-      //       }
+                console.log(data[counter].id);
+                //suprimer les projet
 
-      //       if (localStorage.getItem("id")) {
-      //         let getId = JSON.parse(localStorage.getItem("id"));
-      //         for (let id of getId) {
-      //           deleteProject(id);
-      //           console.log("le ID ", id);
-      //         }
+                var element = document.getElementById(`B${data[counter].id}`);
 
-      //         localStorage.removeItem("id");
-      //       }
-      //     });
-      //   }
-      // })
+                element.remove();
 
-      // .catch((err) => console.log(err));
+                var element2 = document.getElementById(`A${data[counter].id}`);
 
+                element2.remove();
+
+                tableauId.push(data[counter].id);
+                console.log(tableauId);
+                localStorage.setItem("id", JSON.stringify(tableauId));
+             
+              }
+
+              var id = document.getElementById(`${data[counter]?.id}`);
+              if (id) {
+                id.addEventListener("click", delet);
+              }
+              console.log(localStorage.getItem("id"));
+            }
+
+
+
+ function deleteProject(id) {
+              fetch("http://localhost:5678/api/works/" + id, {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+                .then((res) => res.json())
+
+                .catch((err) => console.log("il ya un problem" + err));
+            }
+
+            if (localStorage.getItem("id")) {
+              let getId = JSON.parse(localStorage.getItem("id"));
+              for (let id of getId) {
+                deleteProject(id);
+                tout()
+                console.log("le ID ", id);
+              }
+
+              localStorage.removeItem("id");
+              console.log("suuuuuuuuuuuuprimer")
+            }
+          });
+        }
+      })
+    }
+ 
+deeeeeeel()
     let page = null;
 
     ///////////////////////ouvre modal////////////////////
@@ -299,7 +271,9 @@ if (localStorage.getItem("token")) {
       page
         .querySelector(".js_modal_stop")
         .addEventListener("click", stopPropagation);
+     
       //le modal ferme quand on click d'hors
+      deeeeeeel()
     }
 
     document
