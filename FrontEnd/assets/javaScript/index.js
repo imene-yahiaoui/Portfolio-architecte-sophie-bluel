@@ -16,6 +16,7 @@ function deleteProject(id) {
 
 if (localStorage.getItem("id")) {
   let getId = JSON.parse(localStorage.getItem("id"));
+
   for (let id of getId) {
     deleteProject(id);
     tout();
@@ -73,6 +74,7 @@ function suprime() {
 function photos(works) {
   const photo_modal = `
       <figure id ="B${works.id}">
+   
                 <div id="repertoire_modal" class="photo_model_efface">
       <img src="${works?.imageUrl} "crossOrigin="anonymous">
               <i id ="${works.id}" class="fa-regular fa-trash-can "></i>
@@ -165,171 +167,165 @@ if (localStorage.getItem("token")) {
 <p>Mode édition</p>  </div>`;
   edition.insertAdjacentHTML("afterbegin", modification);
   edition.className = "edition";
-  edition.onclick = function () {
-    const modifier = `
+  //edition.onclick = function () {}
+  const modifier = `
 <div id= "modifier">
 <i class="fa-regular fa-pen-to-square"></i>
 <p>modifier</p>  </div>`;
 
-    const modifier_model = `
+  const modifier_model = `
 <a href ="#modal"></a>
 <div id= "modifier_model">
 <i class="fa-regular fa-pen-to-square"></i>
 <p>modifier</p>  </div>`;
 
-    document
-      .getElementById("portfolio_titre")
-      .insertAdjacentHTML("afterend", modifier_model);
-    document
-      .getElementById("introduction_article")
-      .insertAdjacentHTML("afterbegin", modifier);
-    document
-      .getElementById("introduction_photo")
-      .insertAdjacentHTML("beforeend", modifier);
+  document
+    .getElementById("portfolio_titre")
+    .insertAdjacentHTML("afterend", modifier_model);
+  document
+    .getElementById("introduction_article")
+    .insertAdjacentHTML("afterbegin", modifier);
+  document
+    .getElementById("introduction_photo")
+    .insertAdjacentHTML("beforeend", modifier);
 
-    afficheModel();
+  afficheModel();
 
-    ////////////delet//////////////:
+  ////////////delet//////////////:
 
-    function deeeeeeel() {
-      fetch("http://localhost:5678/api/works").then((res) => {
-        if (res.ok) {
-          res.json().then((data) => {
-            for (let counter = 1; counter <= data.length; counter++) {
-              function delet() {
-                data[counter].id;
+  function suprission() {
+    fetch("http://localhost:5678/api/works").then((res) => {
+      if (res.ok) {
+        res.json().then((data) => {
+          for (let counter = 1; counter <= data.length; counter++) {
+            function delet() {
+              data[counter].id;
 
-                console.log(`${data[counter]?.id}`);
+              console.log(`${data[counter]?.id}`);
 
-                console.log(data[counter].id);
-                //suprimer les projet
+              console.log(data[counter].id);
+              //suprimer les projet
 
-                var element = document.getElementById(`B${data[counter].id}`);
+              var element = document.getElementById(`B${data[counter].id}`);
 
-                element.remove();
+              element?.remove();
 
-                var element2 = document.getElementById(`A${data[counter].id}`);
+              var element2 = document.getElementById(`A${data[counter].id}`);
 
-                element2.remove();
+              element2?.remove();
 
-                tableauId.push(data[counter].id);
-                console.log(tableauId);
-                localStorage.setItem("id", JSON.stringify(tableauId));
-              }
-
-              var id = document.getElementById(`${data[counter]?.id}`);
-              if (id) {
-                id.addEventListener("click", delet);
-              }
-              console.log(localStorage.getItem("id"));
+              tableauId.push(data[counter].id);
+              console.log(tableauId);
+              localStorage.setItem("id", JSON.stringify(tableauId));
             }
 
-            function deleteProject(id) {
-              fetch("http://localhost:5678/api/works/" + id, {
-                method: "DELETE",
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              })
-                .then((res) => res.json())
+            var id = document.getElementById(`${data[counter]?.id}`);
+            if (id) {
+              id.addEventListener("click", delet);
+            }
+            console.log(localStorage.getItem("id"));
+          }
 
-                .catch((err) => console.log("il ya un problem" + err));
+          function deleteProject(id) {
+            fetch("http://localhost:5678/api/works/" + id, {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+              .then((res) => res.json())
+
+              .catch((err) => console.log("il ya un problem" + err));
+          }
+
+          if (localStorage.getItem("id")) {
+            let getId = JSON.parse(localStorage.getItem("id"));
+            for (let id of getId) {
+              deleteProject(id);
+              tout();
+              console.log("le ID ", id);
             }
 
-            if (localStorage.getItem("id")) {
-              let getId = JSON.parse(localStorage.getItem("id"));
-              for (let id of getId) {
-                deleteProject(id);
-                tout();
-                console.log("le ID ", id);
-              }
-
-              localStorage.removeItem("id");
-              console.log("suuuuuuuuuuuuprimer");
-            }
-          });
-        }
-      });
-    }
-
-    deeeeeeel();
-    let page = null;
-
-    ///////////////////////ouvre modal////////////////////
-    function ouvre_modal(e) {
-      e.preventDefault;
-      const target = document.getElementById("modal");
-      target.style.display = null;
-      target.removeAttribute("aria-hidden");
-      page = target;
-      page?.addEventListener("click", ferme_modal);
-      page
-        .querySelector(".js_modal_stop")
-        .addEventListener("click", stopPropagation);
-
-      //le modal ferme quand on click d'hors
-      deeeeeeel();
-    }
-
-    document
-      .getElementById("modifier_model")
-      .addEventListener("click", ouvre_modal);
-    //////la fleche de retoure
-    document.getElementById("left").addEventListener("click", ouvre_modal);
-
-    /////ouvre modal avec clavier
-    window.addEventListener("keydown", function (e) {
-      if (e.key === "Enter") {
-        ouvre_modal(e);
+            localStorage.removeItem("id");
+            console.log("suuuuuuuuuuuuprimer");
+          }
+        });
       }
     });
+  }
 
+  suprission();
+  let page = null;
+
+  ///////////////////////ouvre modal////////////////////
+  function ouvre_modal(e) {
+    e.preventDefault;
+    const target = document.getElementById("modal");
+    target.style.display = null;
+    target.removeAttribute("aria-hidden");
+    page = target;
+    page?.addEventListener("click", ferme_modal);
+    page
+      .querySelector(".js_modal_stop")
+      .addEventListener("click", stopPropagation);
+
+    //le modal ferme quand on click d'hors
+    suprission();
+  }
+
+  document
+    .getElementById("modifier_model")
+    .addEventListener("click", ouvre_modal);
+  //////la fleche de retoure
+  document.getElementById("left").addEventListener("click", ouvre_modal);
+
+  /////ouvre modal avec clavier
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      ouvre_modal(e);
+    }
     //pour stop  la fermeteur le model quand en click dessu
 
     const stopPropagation = function (e) {
       e.stopPropagation();
     };
+  });
 
-    ///////////:////FERMER le modal//////////////
-    function ferme_modal(e) {
-      e.preventDefault;
-      const page = document.getElementById("modal");
-      page.style.display = "none";
-      page.setAttribute("aria-hidden", "true");
-      page?.removeEventListener("click", ferme_modal);
+  ///////////:////FERMER le modal//////////////
+  function ferme_modal(e) {
+    e.preventDefault;
+    const page = document.getElementById("modal");
+    page.style.display = "none";
+    page.setAttribute("aria-hidden", "true");
+    page?.removeEventListener("click", ferme_modal);
+  }
+  document
+    .getElementById("model_fermer")
+    .addEventListener("click", ferme_modal);
+  document
+    .getElementById("model_ajoute")
+    .addEventListener("click", ferme_modal);
+
+  /////////////ferme modal avec clavier
+
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" || e.key === "Esc") {
+      ferme_modal(e);
     }
+  });
+  ///////desactiver le repetation de modifier ///////////
+  edition.onclick = function () {
     document
-      .getElementById("model_fermer")
-      .addEventListener("click", ferme_modal);
-    document
-      .getElementById("model_ajoute")
-      .addEventListener("click", ferme_modal);
-
-    /////////////ferme modal avec clavier
-
-    window.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" || e.key === "Esc") {
-        ferme_modal(e);
-      }
-    });
-    ///////desactiver le repetation de modifier ///////////
-    edition.onclick = function () {
-      document
-        .getElementById("portfolio_titre")
-        .removeAttribute("modifier_model");
-      document
-        .getElementById("introduction_article")
-        .removeAttribute("modifier");
-      document.getElementById("introduction_photo").removeAttribute("modifier");
-    };
+      .getElementById("portfolio_titre")
+      .removeAttribute("modifier_model");
+    document.getElementById("introduction_article").removeAttribute("modifier");
+    document.getElementById("introduction_photo").removeAttribute("modifier");
   };
+  //};
 
   const edit = document.getElementById("modifer");
   edit.appendChild(edition);
 
-  //ouvre et ferme  modal ajout photo
-
-  //////////////////////////////////////////ouvre////////////////////
   /////ouvre la page ajoute photo///
 
   let model_ajout = null;
@@ -367,8 +363,6 @@ if (localStorage.getItem("token")) {
   const stopPropagation = function (e) {
     e.stopPropagation();
   };
-
-  //////////////////////ferme//////////////////////////////////
 
   ////FERMER le modal de ajout photo ///
   function ferme_modal_ajoute(e) {
