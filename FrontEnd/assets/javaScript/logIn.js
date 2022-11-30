@@ -29,7 +29,7 @@ form.addEventListener("submit", function (e) {
         //recupre le token dans le localStorage
         localStorage.setItem("token", data.token);
         //lien ver la page model
-        location.href = "/FrontEnd/index.html";
+        location.href = "../../index.html";
       }
 
       //affiche error
