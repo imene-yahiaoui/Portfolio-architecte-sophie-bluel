@@ -40,7 +40,7 @@ function tout() {
   fetch("http://localhost:5678/api/works").then((res) => {
     if (res.ok) {
       res.json().then((data) => {
-        console.log("touuuuuuuuuut", data);
+        console.log( data);
         document.querySelector(".gallery").innerHTML = "";
 
         for (let i = 0; i <= data.length - 1; i++) {
