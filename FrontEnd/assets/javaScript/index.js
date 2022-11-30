@@ -19,8 +19,8 @@ function tout (){
       res.json().then((data) => {
         console.log("touuuuuuuuuut", data);
       document.querySelector(".gallery").innerHTML = "";
-      let i = 0;
-      for (i = 0; i <= data.length- 1; i++) {
+     
+      for (let i = 0; i <= data.length- 1; i++) {
         info(data[i]);
       }
     })}})}
@@ -44,6 +44,32 @@ function suprime(){
    const category = document.getElementById("categorie");
    category.value = null;
 }
+
+function photos(works) {
+  const photo_modal = `
+      <figure id ="${works.id}">
+                <div id="repertoire_modal" class="photo_model_efface">
+      <img src="${works?.imageUrl} "crossOrigin="anonymous">
+               <i id ="${works.id}" class="fa-regular fa-trash-can "></i>
+             </div>
+                  <figcaption>éditer</figcaption>
+      </figure>
+            `;
+
+  document
+    .getElementById("model_gallery")
+    .insertAdjacentHTML("beforeend", photo_modal);
+}
+function afficheModel(){
+fetch("http://localhost:5678/api/works").then((res) => {
+  if (res.ok) {
+    res.json().then((data) => {
+      document.getElementById("model_gallery").innerHTML = "";
+     
+          for (let i = 0; i <= data.length - 1; i++) {
+            photos(data[i]);
+          }
+        })}})}
 
 //fetch works
 
@@ -199,99 +225,66 @@ if (localStorage.getItem("token")) {
       .getElementById("introduction_photo")
       .insertAdjacentHTML("beforeend", modifier);
 
-    ///afficher le photos
-    function photos(works) {
-      const photo_modal = `
-          <figure id ="${works.id}">
-          
-          <div id="repertoire_modal" class="photo_model_efface">
-          <img src="${works?.imageUrl} "crossOrigin="anonymous">
-         
-          <i id ="${works.id}" class="fa-regular fa-trash-can "></i>
-       
-          </div>
-          
-            <figcaption>éditer</figcaption>
-          </figure>
-                `;
 
-      document
-        .getElementById("model_gallery")
-        .insertAdjacentHTML("beforeend", photo_modal);
-    }
+    afficheModel()
 
-    fetch("http://localhost:5678/api/works")
-      .then((res) => {
-        console.log(res);
-        if (res.ok) {
-          res.json().then((data) => {
-            console.log("data", data);
-            function affiche_model() {
-              let i = 0;
-              for (i = 0; i <= data.length - 1; i++) {
-                photos(data[i]);
-              }
-            }
+      //       ////////////delet//////////////:
+      //       for (let counter = 1; counter <= data.length; counter++) {
+      //         function delet() {
+      //           data[counter].id;
 
-            affiche_model();
+      //           console.log(`${data[counter]?.id}`);
 
-            ////////////delet//////////////:
-            for (let counter = 1; counter <= data.length; counter++) {
-              function delet() {
-                data[counter].id;
+      //           console.log(data[counter].id);
+      //           //suprimer les projet
 
-                console.log(`${data[counter]?.id}`);
+      //           var element = document.getElementById(data[counter].id);
 
-                console.log(data[counter].id);
-                //suprimer les projet
+      //           element.remove();
 
-                var element = document.getElementById(data[counter].id);
+      //           var element2 = document.getElementById(`A${data[counter].id}`);
 
-                element.remove();
+      //           element2.remove();
 
-                var element2 = document.getElementById(`A${data[counter].id}`);
-
-                element2.remove();
-
-                tableauId.push(data[counter].id);
-                console.log(tableauId);
-                localStorage.setItem("id", JSON.stringify(tableauId));
+      //           tableauId.push(data[counter].id);
+      //           console.log(tableauId);
+      //           localStorage.setItem("id", JSON.stringify(tableauId));
              
-              }
+      //         }
 
-              var id = document.getElementById(`${data[counter]?.id}`);
-              if (id) {
-                id.addEventListener("click", delet);
-              }
-              console.log(localStorage.getItem("id"));
-            }
+      //         var id = document.getElementById(`${data[counter]?.id}`);
+      //         if (id) {
+      //           id.addEventListener("click", delet);
+      //         }
+      //         console.log(localStorage.getItem("id"));
+      //       }
 
-            function deleteProject(id) {
-              fetch("http://localhost:5678/api/works/" + id, {
-                method: "DELETE",
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              })
-                .then((res) => res.json())
+      //       function deleteProject(id) {
+      //         fetch("http://localhost:5678/api/works/" + id, {
+      //           method: "DELETE",
+      //           headers: {
+      //             Authorization: `Bearer ${token}`,
+      //           },
+      //         })
+      //           .then((res) => res.json())
 
-                .catch((err) => console.log("il ya un problem" + err));
-            }
+      //           .catch((err) => console.log("il ya un problem" + err));
+      //       }
 
-            if (localStorage.getItem("id")) {
-              let getId = JSON.parse(localStorage.getItem("id"));
-              for (let id of getId) {
-                deleteProject(id);
-                console.log("le ID ", id);
-              }
+      //       if (localStorage.getItem("id")) {
+      //         let getId = JSON.parse(localStorage.getItem("id"));
+      //         for (let id of getId) {
+      //           deleteProject(id);
+      //           console.log("le ID ", id);
+      //         }
 
-              localStorage.removeItem("id");
-            }
-          });
-        }
-      })
+      //         localStorage.removeItem("id");
+      //       }
+      //     });
+      //   }
+      // })
 
-      .catch((err) => console.log(err));
+      // .catch((err) => console.log(err));
 
     let page = null;
 
@@ -509,7 +502,10 @@ if (localStorage.getItem("token")) {
                       });
                       if (requete.status === 201) {
                         document.querySelector(".gallery").innerHTML = "";
+                        document.getElementById("model_gallery").innerHTML = "";
                     tout();  
+                    afficheModel()
+                   
                       } else {
                         throw "Un problème est survenu";
                       }
