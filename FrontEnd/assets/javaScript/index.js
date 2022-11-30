@@ -2,30 +2,28 @@ const btn_tous = document.getElementById("btn_tous");
 const gallery = document.querySelector(".gallery");
 let token = localStorage.getItem("token");
 
+function deleteProject(id) {
+  fetch("http://localhost:5678/api/works/" + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => res.json())
 
- function deleteProject(id) {
-              fetch("http://localhost:5678/api/works/" + id, {
-                method: "DELETE",
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              })
-                .then((res) => res.json())
+    .catch((err) => console.log("il ya un problem" + err));
+}
 
-                .catch((err) => console.log("il ya un problem" + err));
-            }
+if (localStorage.getItem("id")) {
+  let getId = JSON.parse(localStorage.getItem("id"));
+  for (let id of getId) {
+    deleteProject(id);
+    tout();
+    console.log("le ID ", id);
+  }
 
-            if (localStorage.getItem("id")) {
-              let getId = JSON.parse(localStorage.getItem("id"));
-              for (let id of getId) {
-                deleteProject(id);
-                tout();
-                console.log("le ID ", id);
-              }
-
-              localStorage.removeItem("id");
-            }
-
+  localStorage.removeItem("id");
+}
 
 function info(work) {
   const card = `
@@ -34,38 +32,42 @@ function info(work) {
       <figcaption>${work?.title}</figcaption>
     </figure>
           `;
-  document.querySelector(".gallery").insertAdjacentHTML("beforeend", card);}
+  document.querySelector(".gallery").insertAdjacentHTML("beforeend", card);
+}
 
-function tout (){
-   fetch("http://localhost:5678/api/works").then((res) => {
+function tout() {
+  fetch("http://localhost:5678/api/works").then((res) => {
     if (res.ok) {
       res.json().then((data) => {
         console.log("touuuuuuuuuut", data);
-      document.querySelector(".gallery").innerHTML = "";
-     
-      for (let i = 0; i <= data.length- 1; i++) {
-        info(data[i]);
-      }
-    })}})}
+        document.querySelector(".gallery").innerHTML = "";
+
+        for (let i = 0; i <= data.length - 1; i++) {
+          info(data[i]);
+        }
+      });
+    }
+  });
+}
 
 btn_tous.addEventListener("click", tout);
 
-function suprime(){
-   // suprim les doner quand en ferme
-   document.getElementById("model_ajout_container").style.display = null;
-   document.getElementById("image_telecharger_images").style.display = "none";
-   //suprime les doner de titre
+function suprime() {
+  // suprim les doner quand en ferme
+  document.getElementById("model_ajout_container").style.display = null;
+  document.getElementById("image_telecharger_images").style.display = "none";
+  //suprime les doner de titre
 
-   const input_titre_ajout = document.getElementById("input_model");
-   input_titre_ajout.value = null;
+  const input_titre_ajout = document.getElementById("input_model");
+  input_titre_ajout.value = null;
 
-   //suprime le url des photos
-   const input_photo_url = document.getElementById("img_input");
-   input_photo_url.value = null;
+  //suprime le url des photos
+  const input_photo_url = document.getElementById("img_input");
+  input_photo_url.value = null;
 
-   //suprime les donner de categore
-   const category = document.getElementById("categorie");
-   category.value = null;
+  //suprime les donner de categore
+  const category = document.getElementById("categorie");
+  category.value = null;
 }
 
 function photos(works) {
@@ -83,61 +85,62 @@ function photos(works) {
     .getElementById("model_gallery")
     .insertAdjacentHTML("beforeend", photo_modal);
 }
-function afficheModel(){
-fetch("http://localhost:5678/api/works").then((res) => {
-  if (res.ok) {
-    res.json().then((data) => {
-      document.getElementById("model_gallery").innerHTML = "";
-     
-          for (let i = 0; i <= data.length - 1; i++) {
-            photos(data[i]);
-          }
-        })}})}
+function afficheModel() {
+  fetch("http://localhost:5678/api/works").then((res) => {
+    if (res.ok) {
+      res.json().then((data) => {
+        document.getElementById("model_gallery").innerHTML = "";
 
-
+        for (let i = 0; i <= data.length - 1; i++) {
+          photos(data[i]);
+        }
+      });
+    }
+  });
+}
 
 /////crée des btn  object////
 fetch("http://localhost:5678/api/works").then((res) => {
   if (res.ok) {
     res.json().then((data) => {
-     const numSlid = data.length;
+      const numSlid = data.length;
       //fetch categoris
-      fetch("http://localhost:5678/api/categories")
-        .then((res) => {
-          if (res.ok) {
-            res.json().then((category) => {
+      fetch("http://localhost:5678/api/categories").then((res) => {
+        if (res.ok) {
+          res.json().then((category) => {
             for (let count = 0; count <= category.length - 1; count++) {
-                const object = document.createElement("button");
-                object.type = "button";
-                object.innerHTML = category[count].name;
-                object.className = "btn_option";
-                object.onclick = function () {
-                  document.querySelector(".gallery").innerHTML = "";
+              const object = document.createElement("button");
+              object.type = "button";
+              object.innerHTML = category[count].name;
+              object.className = "btn_option";
+              object.onclick = function () {
+                document.querySelector(".gallery").innerHTML = "";
 
-                  for (let i = 0; i <= numSlid; i++) {
-                    if (data[i]?.category.name === category[count].name) {
-                      info(data[i]);
-                    }
+                for (let i = 0; i <= numSlid; i++) {
+                  if (data[i]?.category.name === category[count].name) {
+                    info(data[i]);
                   }
-                };
-                ////cacher les btn dans le mode de login
-                if (localStorage.getItem("token")) {
-                  console.log("Bienvenu Sophie");
-                } else {
-                  const button = document.getElementById("btn");
-                  button.appendChild(object);
                 }
+              };
+              ////cacher les btn dans le mode de login
+              if (localStorage.getItem("token")) {
+                console.log("Bienvenu Sophie");
+              } else {
+                const button = document.getElementById("btn");
+                button.appendChild(object);
               }
-              
-  //              
+            }
+
+            //
           });
         }
-      })
-     
-     // .catch((err) => console.log(err));
-             })}//})})}
-             tout();
-         });
+      });
+
+      // .catch((err) => console.log(err));
+    });
+  } //})})}
+  tout();
+});
 
 /////entre a la page model
 if (localStorage.getItem("token")) {
@@ -184,21 +187,16 @@ if (localStorage.getItem("token")) {
       .getElementById("introduction_photo")
       .insertAdjacentHTML("beforeend", modifier);
 
+    afficheModel();
 
-    afficheModel()
+    ////////////delet//////////////:
 
-            ////////////delet//////////////:
-
-  
-             function deeeeeeel() {
-               
-             
-            fetch("http://localhost:5678/api/works").then((res) => {
-              if (res.ok) {
-                res.json().then((data) => {
-
+    function deeeeeeel() {
+      fetch("http://localhost:5678/api/works").then((res) => {
+        if (res.ok) {
+          res.json().then((data) => {
             for (let counter = 1; counter <= data.length; counter++) {
-  function delet() {
+              function delet() {
                 data[counter].id;
 
                 console.log(`${data[counter]?.id}`);
@@ -217,7 +215,6 @@ if (localStorage.getItem("token")) {
                 tableauId.push(data[counter].id);
                 console.log(tableauId);
                 localStorage.setItem("id", JSON.stringify(tableauId));
-             
               }
 
               var id = document.getElementById(`${data[counter]?.id}`);
@@ -227,9 +224,7 @@ if (localStorage.getItem("token")) {
               console.log(localStorage.getItem("id"));
             }
 
-
-
- function deleteProject(id) {
+            function deleteProject(id) {
               fetch("http://localhost:5678/api/works/" + id, {
                 method: "DELETE",
                 headers: {
@@ -245,19 +240,19 @@ if (localStorage.getItem("token")) {
               let getId = JSON.parse(localStorage.getItem("id"));
               for (let id of getId) {
                 deleteProject(id);
-                tout()
+                tout();
                 console.log("le ID ", id);
               }
 
               localStorage.removeItem("id");
-              console.log("suuuuuuuuuuuuprimer")
+              console.log("suuuuuuuuuuuuprimer");
             }
           });
         }
-      })
+      });
     }
- 
-deeeeeeel()
+
+    deeeeeeel();
     let page = null;
 
     ///////////////////////ouvre modal////////////////////
@@ -271,9 +266,9 @@ deeeeeeel()
       page
         .querySelector(".js_modal_stop")
         .addEventListener("click", stopPropagation);
-     
+
       //le modal ferme quand on click d'hors
-      deeeeeeel()
+      deeeeeeel();
     }
 
     document
@@ -384,7 +379,7 @@ deeeeeeel()
     model_ajout?.removeEventListener("click", ferme_modal_ajoute);
 
     // suprim les doner quand en ferme
-   suprime()
+    suprime();
 
     //suprimer msg err
     document.getElementById("msg_err").innerHTML = "";
@@ -423,9 +418,8 @@ deeeeeeel()
 
   document.getElementById("img_input").addEventListener("change", telecharger);
 
-
   ///////////////////Envoi de fichiers a API///////////////////
- 
+
   document.getElementById("modal_ajout").addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -466,20 +460,22 @@ deeeeeeel()
                   //fetch works
                   const setNewProject = async (data) => {
                     try {
-                      const requete = await fetch("http://localhost:5678/api/works", {
-                        method: "POST",
-                        headers: {
-                          Authorization:  `Bearer ${token}`,
-                          accept: "application/json",
-                        },
-                        body: data,
-                      });
+                      const requete = await fetch(
+                        "http://localhost:5678/api/works",
+                        {
+                          method: "POST",
+                          headers: {
+                            Authorization: `Bearer ${token}`,
+                            accept: "application/json",
+                          },
+                          body: data,
+                        }
+                      );
                       if (requete.status === 201) {
                         document.querySelector(".gallery").innerHTML = "";
                         document.getElementById("model_gallery").innerHTML = "";
-                    tout();  
-                    afficheModel()
-                   
+                        tout();
+                        afficheModel();
                       } else {
                         throw "Un problème est survenu";
                       }
@@ -488,8 +484,6 @@ deeeeeeel()
                     }
                   };
                   setNewProject(formData);
-  
-                            
                 } else {
                   document.getElementById("msg_err").innerHTML =
                     "la taille de la photo est plus de 4mo  ";
@@ -502,15 +496,15 @@ deeeeeeel()
                     "image_telecharger_images"
                   ).style.display = "none";
                 }
-                suprime()
+                suprime();
               }
-            }  
-          });  
-        }  
-      });  
-    }  
-  });  
- 
+            }
+          });
+        }
+      });
+    }
+  });
+
   ///////////////publier les changements
   const changment = document.createElement("button");
   changment.type = "button";
