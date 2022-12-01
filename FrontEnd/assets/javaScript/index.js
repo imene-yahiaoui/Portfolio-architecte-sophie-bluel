@@ -197,7 +197,7 @@ if (localStorage.getItem("token")) {
     fetch("http://localhost:5678/api/works").then((res) => {
       if (res.ok) {
         res.json().then((data) => {
-          for (let counter = 1; counter <= data.length; counter++) {
+          for (let counter = 0; counter <= data.length; counter++) {
             function delet() {
               data[counter].id;
 
